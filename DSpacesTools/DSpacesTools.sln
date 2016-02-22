@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPluginDemo", "DPluginDemo\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNetwork", "DNetwork\DNetwork.csproj", "{63E0CBBC-95B6-4CD3-A267-2608C9AC0F68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPlugin", "IPlugin\IPlugin.csproj", "{6E8E4C14-7D50-4CC2-8C85-A3CBB1C5D568}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IConnector", "IPlugin\IConnector.csproj", "{6E8E4C14-7D50-4CC2-8C85-A3CBB1C5D568}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

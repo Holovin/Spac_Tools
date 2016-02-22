@@ -17,8 +17,7 @@ namespace DPluginDemo {
         }
 
         private void ButtonCheckNetwork_Click(object sender, EventArgs e) {
-            var t = new Network();
-            MessageBox.Show(t.Test(t.Name), @"Passed");
+            //
         }
     }
 }
