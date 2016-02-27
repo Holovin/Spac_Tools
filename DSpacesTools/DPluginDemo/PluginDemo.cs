@@ -24,7 +24,9 @@ namespace DPluginDemo
         public string Link => "";
 
         public Dictionary<string, int> Requires => new Dictionary<string, int>() {
-            {"core", 1}
+            {"core", 1},
+            {"network" , 1},
+            {"api", 1}
         };
 
         public string Description => "Demo project for demonstration";

@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DNetwork;
+using DSpacesAPI;
 
 namespace DSpacesTools {
     public partial class FormApp : Form {
@@ -20,7 +22,14 @@ namespace DSpacesTools {
         }
 
         private void button1_Click(object sender, EventArgs e) {
-           Program.AppCore.PluginContainer.Plugins[0].Run(this, "Passed!");
+            Program.AppCore.PluginContainer.Plugins[0].Run(this, "Passed!");
+        }
+
+        private async void ButtonLogin_Click(object sender, EventArgs e) {
+            var network = new Network("Mozillo");
+            var session = new Session(network);
+
+            MessageBox.Show(await session.Create(Clipboard.GetText()) ? "PASSED" : "FAILED");
         }
     }
 }

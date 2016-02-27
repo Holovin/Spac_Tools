@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace DSpacesTools {
     public class Core {
+        public static int Version { get; } = 1;
+
         public PluginContainer PluginContainer;
 
         private readonly List<string> basePluginsList =
         new List<string>  {
-            "IPlugin.dll"
+            "IPlugin.dll",
+            "DNetwork.dll",
+            "DSpacesAPI.dll"
         };
 
         public static string GetCurrentPath() {

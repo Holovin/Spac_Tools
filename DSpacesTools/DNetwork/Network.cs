@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using IPlugin;
 
 namespace DNetwork {
-    public class Network : INetworkPlugin {
+    public class Network : IBasePlugin {
         public string Name => "Base.Network";
 
         public string Author => "DJ_miXxXer";
@@ -37,26 +37,37 @@ namespace DNetwork {
         /// <summary>
         /// Cookies for HttpClient (external for access)
         /// </summary>
-        private CookieContainer cookieContainer;
+        private CookieContainer CookieContainer => httpClientHandler.CookieContainer;
 
-
+        /// <summary>
+        /// Progress for progressbars (add delegate with += operator to HttpSendProgress/HttpReciveProgress to watching)
+        /// </summary>
         public ProgressMessageHandler ProgressMessageHandler { get; set; }
-        
+
+        /// <summary>
+        /// Store text answer from last query
+        /// </summary>
         public string RecivedData { get; private set; }
-        
+
+        /// <summary>
+        /// Store http code answer from last query
+        /// </summary>
         public HttpStatusCode RecivedHttpCode { get; private set; }
-        
+
+        /// <summary>
+        /// Store http uri from last query
+        /// </summary>
         public Uri RecivedUri { get; private set; }
 
-        public Network(string useragent) {
-            cookieContainer = new CookieContainer();
+        public string test = " ";
 
+        public Network(string useragent) {
             httpClientHandler = new HttpClientHandler {
                 ClientCertificateOptions = ClientCertificateOption.Automatic,
                 AllowAutoRedirect = true,
                 MaxAutomaticRedirections = 3,
                 UseCookies = true,
-                CookieContainer = cookieContainer,
+                CookieContainer = new CookieContainer(),
                 Credentials = CredentialCache.DefaultCredentials,
                 UseDefaultCredentials = true
             };
@@ -71,30 +82,58 @@ namespace DNetwork {
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
             httpClient.DefaultRequestHeaders.ExpectContinue = false;
         }
-        
+
+        /// <summary>
+        /// Set httpClient timeout property
+        /// </summary>
+        /// <param name="minutes">Time in minutes</param>
         public void SetRequestTimeout(int minutes) {
             httpClient.Timeout = TimeSpan.FromMinutes(minutes);
         }
 
+        /// <summary>
+        /// Remove all cookies in CookieContainer
+        /// </summary>
+        /// <param name="uri">Domain for remove</param>
         public void ClearCookies() {
-            // TODO: Find best way? 
-            cookieContainer = new CookieContainer();
+            //foreach (Cookie cookie in cookieContainer.GetCookies(uri)) {
+            //    cookie.Expired = true;
+            //}
+
+            httpClientHandler.CookieContainer = new CookieContainer();
         }
 
+        /// <summary>
+        /// Gives string cookie value
+        /// </summary>
+        /// <param name="uri">Host for GetCookies</param>
+        /// <param name="name">Cookie name</param>
+        /// <returns>Cookie value or string.Empty if nothing fonud</returns>
         public string GetCookieByName(Uri uri, string name) {
-            foreach (var c in from Cookie c in cookieContainer.GetCookies(uri) where c.Name == name select c) {
+            foreach (var c in from Cookie c in CookieContainer.GetCookies(uri) where c.Name == name select c) {
                 return c.Value;
             }
 
             return string.Empty;
         }
-        
+
+        /// <summary>
+        /// Send http GET request
+        /// </summary>
+        /// <param name="url">Request url</param>
+        /// <returns>No return value</returns>
         public async Task Get(string url) {
             using (var response = await httpClient.GetAsync(url).ConfigureAwait(false)) {
                 await ProcessRequest(response);
             }
-        }
-       
+        }        
+
+        /// <summary>
+        /// Send http POST request
+        /// </summary>
+        /// <param name="url">Request url</param>
+        /// <param name="postParams">List with key=value post params</param>
+        /// <returns>No return value</returns>
         public async Task Post(string url, List<KeyValuePair<string, string>> postParams) {
             using (var postHeaders = new FormUrlEncodedContent(postParams))
             using (var response = await httpClient.PostAsync(url, postHeaders).ConfigureAwait(false)) {

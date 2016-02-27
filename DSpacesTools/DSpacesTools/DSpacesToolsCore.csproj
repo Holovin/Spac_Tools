@@ -92,6 +92,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DNetwork\DNetwork.csproj">
+      <Project>{63e0cbbc-95b6-4cd3-a267-2608c9ac0f68}</Project>
+      <Name>DNetwork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DSpacesAPI\DSpacesAPI.csproj">
+      <Project>{56224f45-a169-4790-b99a-fa114787573a}</Project>
+      <Name>DSpacesAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IPlugin\IConnector.csproj">
       <Project>{6e8e4c14-7d50-4cc2-8c85-a3cbb1c5d568}</Project>
       <Name>IConnector</Name>
