@@ -12,13 +12,13 @@ using IPlugin;
 
 namespace DNetwork {
     public class Network : IBasePlugin {
-        public string Name => "Base.Network";
+        public string Name => "Network";
 
         public string Author => "DJ_miXxXer";
 
         public string Description => "Base plugin for network";
 
-        public string InnerName => "network";
+        public string InnerName => "base.network";
 
         public string Link => "http://spaces.ru";
 
@@ -59,9 +59,7 @@ namespace DNetwork {
         /// </summary>
         public Uri RecivedUri { get; private set; }
 
-        public string test = " ";
-
-        public Network(string useragent) {
+        public Network(string useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116") {
             httpClientHandler = new HttpClientHandler {
                 ClientCertificateOptions = ClientCertificateOption.Automatic,
                 AllowAutoRedirect = true,

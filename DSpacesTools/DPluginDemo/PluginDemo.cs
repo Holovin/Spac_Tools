@@ -21,12 +21,12 @@ namespace DPluginDemo
 
         public string Author => "DJ_miXxXer";
 
-        public string Link => "";
+        public string Link => "http://spaces.ru/mysite/?name=DJ_miXxXer";
 
-        public Dictionary<string, int> Requires => new Dictionary<string, int>() {
-            {"core", 1},
-            {"network" , 1},
-            {"api", 1}
+        public Dictionary<string, List<int>> Requires => new Dictionary<string, List<int>>() {
+            {"base.core", new List<int>() {1, 0} },
+            {"base.network", new List<int>() {1, 0}},
+            {"base.api", new List<int>() {1, 0}}
         };
 
         public string Description => "Demo project for demonstration";
@@ -34,7 +34,7 @@ namespace DPluginDemo
         private PluginGUI app;
 
         public void Run(params object[] o) {          
-            app = new PluginGUI(Convert.ToString(o[1]));
+            app = new PluginGUI("Test");
             app.Show((Form)o[0]);
         }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DSpacesTools.Properties;
 
 namespace DSpacesTools {
     public static class Program {
@@ -14,6 +15,10 @@ namespace DSpacesTools {
         static void Main() {
             try {
                 AppCore = new Core();
+                if (!AppCore.Load()) {
+                    MessageBox.Show(@"Не найдено ни одного плагина" + "\n\n" + @"Приложение будет закрыто", @"Информация");
+                    return;
+                }
             }
             catch (Exception e) {
                 MessageBox.Show(e.Message, @"Ошибка начальной загрузки");

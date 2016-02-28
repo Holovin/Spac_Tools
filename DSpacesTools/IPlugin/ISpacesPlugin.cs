@@ -8,9 +8,9 @@ namespace IPlugin
     public interface ISpacesPlugin: IBasePlugin
     {        
         /// <summary>
-        /// Requires list, format {InnerName; MinVersion}
+        /// Requires list, format {InnerName; MinVersion, MaxVersion}
         /// </summary>
-        Dictionary<string, int> Requires { get; }
+        Dictionary<string, List<int>> Requires { get; }
 
         /// <summary>
         /// Run GUI with plugin init

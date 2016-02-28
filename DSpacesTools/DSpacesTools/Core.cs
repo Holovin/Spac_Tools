@@ -5,12 +5,22 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using DNetwork;
+using DSpacesAPI;
+using IPlugin;
 
 namespace DSpacesTools {
-    public class Core {
-        public static int Version { get; } = 1;
-
-        public PluginContainer PluginContainer;
+    public class Core : IBasePlugin {
+        public string Name => "iSpacesCore";
+        public string InnerName => "base.core";
+        public int Version => 1;
+        public string Author => "DJ_miXxXer";
+        public string Link => "http://spaces.ru";
+        public string Description => "";
+        
+        public PluginContainer PluginContainer { get; }
+        public SpacesApi SpacesApi { get; }
+        public Network Network { get; }
 
         private readonly List<string> basePluginsList =
         new List<string>  {
@@ -27,7 +37,16 @@ namespace DSpacesTools {
             CheckBasePlugins();
 
             PluginContainer = new PluginContainer();
-            PluginContainer.Load();
+            SpacesApi = new SpacesApi();
+            Network = new Network();
+        }
+
+        public bool Load() {
+            PluginContainer.RequireListAdd(Network.InnerName, Network.Version);
+            PluginContainer.RequireListAdd(SpacesApi.InnerName, SpacesApi.Version);
+            PluginContainer.RequireListAdd(this.InnerName, this.Version);
+
+            return PluginContainer.Load() > 0;
         }
 
         private string CheckBasePlugins() {
@@ -38,7 +57,7 @@ namespace DSpacesTools {
                 foreach (var testAssembly in basePluginsList.Select(plugin => AssemblyName.GetAssemblyName(Path.Combine(current, plugin)))) {
                 }
             }
-            catch (Exception e) {
+            catch (Exception) {
                 throw;
             }
 

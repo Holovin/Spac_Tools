@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAccounts.Designer.cs">
+      <DependentUpon>FormAccounts.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormApp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     <Compile Include="PluginContainer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormAccounts.resx">
+      <DependentUpon>FormAccounts.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormApp.resx">
       <DependentUpon>FormApp.cs</DependentUpon>
     </EmbeddedResource>
@@ -76,6 +85,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -104,6 +114,9 @@
       <Project>{6e8e4c14-7d50-4cc2-8c85-a3cbb1c5d568}</Project>
       <Name>IConnector</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cooking.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
