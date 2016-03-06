@@ -115,6 +115,16 @@ namespace DNetwork {
             return string.Empty;
         }
 
+        public string GetUrlValueByParam(string param) {
+            var url = RecivedUri.Query.Substring(1).Split('&');
+           
+            foreach (var temp in url.Where(item => item.Length != 0).Select(item => item.Split('=')).Where(temp => temp[0] == param)) {
+                return temp[1];
+            }
+
+            return string.Empty;
+        }
+
         /// <summary>
         /// Send http GET request
         /// </summary>
@@ -150,8 +160,8 @@ namespace DNetwork {
                 RecivedData = stream.ReadToEnd();
                 RecivedHttpCode = response.StatusCode;
 
-                // TODO: check this
-                RecivedUri = response.Headers.Location;
+                // TODO: check this                
+                RecivedUri = response.RequestMessage.RequestUri;
             }
         }
     }

@@ -117,48 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ButtonPluginRunDisabed" xml:space="preserve">
-    <value>Запуск недоступен</value>
-  </data>
-  <data name="PlguinAuthorLinkConfirm" xml:space="preserve">
-    <value>Перейти на сайт автора?</value>
-  </data>
-  <data name="PluginAuthorLink" xml:space="preserve">
-    <value>Сайт автора</value>
-    <comment>Author link</comment>
-  </data>
-  <data name="ApplicationName" xml:space="preserve">
-    <value>iSpacesTools Alpha</value>
-  </data>
-  <data name="ButtonPluginRunEnabled" xml:space="preserve">
-    <value>Запустить</value>
-  </data>
-  <data name="VersionShort" xml:space="preserve">
-    <value>v</value>
-  </data>
-  <data name="ModalTitleYouSure" xml:space="preserve">
-    <value>Вы уверены?</value>
-  </data>
-  <data name="AppAuthor" xml:space="preserve">
-    <value>DJ_miXxXer</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="UnknownValue" xml:space="preserve">
-    <value>(неизвестно)</value>
-  </data>
-  <data name="SessionAnonymousLogin" xml:space="preserve">
-    <value>Анонимный доступ</value>
-  </data>
-  <data name="SessionStatusEmpty" xml:space="preserve">
-    <value>Не установлен</value>
-  </data>
-  <data name="SessionStatusAnonymous" xml:space="preserve">
-    <value>Анонимный доступ</value>
-  </data>
-  <data name="SessionStatusValid" xml:space="preserve">
-    <value>Проверенная</value>
-  </data>
-  <data name="SessionStateInvalid" xml:space="preserve">
-    <value>Некорректная</value>
-  </data>
+  <metadata name="MainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>20, 19</value>
+  </metadata>
 </root>

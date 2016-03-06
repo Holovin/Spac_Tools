@@ -19,7 +19,7 @@ namespace DSpacesTools {
         public string Description => "";
         
         public PluginContainer PluginContainer { get; }
-        public SpacesApi SpacesApi { get; }
+        public SessionManager SessionManager { get; }
         public Network Network { get; }
 
         private readonly List<string> basePluginsList =
@@ -37,13 +37,13 @@ namespace DSpacesTools {
             CheckBasePlugins();
 
             PluginContainer = new PluginContainer();
-            SpacesApi = new SpacesApi();
+            SessionManager = new SessionManager();
             Network = new Network();
         }
 
         public bool Load() {
             PluginContainer.RequireListAdd(Network.InnerName, Network.Version);
-            PluginContainer.RequireListAdd(SpacesApi.InnerName, SpacesApi.Version);
+            //PluginContainer.RequireListAdd(SpacesApi.InnerName, SpacesApi.Version);
             PluginContainer.RequireListAdd(this.InnerName, this.Version);
 
             return PluginContainer.Load() > 0;

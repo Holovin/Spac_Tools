@@ -97,16 +97,6 @@ namespace DSpacesTools.Properties {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cooking {
-            get {
-                object obj = ResourceManager.GetObject("cooking", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Вы уверены?.
         /// </summary>
         internal static string ModalTitleYouSure {
@@ -130,6 +120,60 @@ namespace DSpacesTools.Properties {
         internal static string PluginAuthorLink {
             get {
                 return ResourceManager.GetString("PluginAuthorLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Анонимный доступ.
+        /// </summary>
+        internal static string SessionAnonymousLogin {
+            get {
+                return ResourceManager.GetString("SessionAnonymousLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Некорректная.
+        /// </summary>
+        internal static string SessionStateInvalid {
+            get {
+                return ResourceManager.GetString("SessionStateInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Анонимный доступ.
+        /// </summary>
+        internal static string SessionStatusAnonymous {
+            get {
+                return ResourceManager.GetString("SessionStatusAnonymous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не установлен.
+        /// </summary>
+        internal static string SessionStatusEmpty {
+            get {
+                return ResourceManager.GetString("SessionStatusEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Проверенная.
+        /// </summary>
+        internal static string SessionStatusValid {
+            get {
+                return ResourceManager.GetString("SessionStatusValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на (неизвестно).
+        /// </summary>
+        internal static string UnknownValue {
+            get {
+                return ResourceManager.GetString("UnknownValue", resourceCulture);
             }
         }
         

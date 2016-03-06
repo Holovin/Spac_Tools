@@ -27,10 +27,10 @@ namespace DSpacesTools {
             ListBoxPlugins.DisplayMember = "Value";
             ListBoxPlugins.ValueMember = "Key";
 
-            LoadPluginList();
+            RefreshPluginList();
         }
 
-        private void LoadPluginList() {
+        private void RefreshPluginList() {
             Program.AppCore.Load();
 
             ListBoxPlugins.Items.Clear();
@@ -78,16 +78,9 @@ namespace DSpacesTools {
             return Program.AppCore.PluginContainer.GetCompabilityList(id).
                 Aggregate(@"Имя файла / Версия (min; max) (если 0 - любая)", (current, req) => current + ("\n" + req.Key + @": " + req.Value[0] + @"; " + req.Value[1]));
         }
-
-        private async void ButtonLogin_Click(object sender, EventArgs e) {
-            var network = new Network("Mozillo");
-            var session = new Session(network);
-
-            MessageBox.Show(await session.Create(Clipboard.GetText()) ? "PASSED" : "FAILED");
-        }
-
+       
         private void ButtonReloadPlugins_Click(object sender, EventArgs e) {
-            LoadPluginList();
+            RefreshPluginList();
         }
 
         private void ListBoxPlugins_SelectedIndexChanged(object sender, EventArgs e) {
@@ -119,6 +112,11 @@ namespace DSpacesTools {
 
         private void MenuMainAccounts_Click(object sender, EventArgs e) {
             var form = new FormAccounts();
+            form.ShowDialog();
+        }
+
+        private void MainMenuSessionsItem_Click(object sender, EventArgs e) {
+            var form = new FormSessions();
             form.ShowDialog();
         }
     }

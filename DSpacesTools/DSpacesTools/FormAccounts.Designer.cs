@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.ListAccounts = new System.Windows.Forms.ListBox();
             this.GroupBoxAccounts = new System.Windows.Forms.GroupBox();
             this.GroupBoxAccountInfo = new System.Windows.Forms.GroupBox();
@@ -31,15 +32,9 @@
             this.LabelAccountAuthType = new System.Windows.Forms.Label();
             this.LabelAccountId = new System.Windows.Forms.Label();
             this.LabelAccountName = new System.Windows.Forms.Label();
-            this.MenuMain = new System.Windows.Forms.MenuStrip();
-            this.MenuMainAccounts = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuMainAccountsAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.постоянныйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.временнйыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuMainAccountsSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.MainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.GroupBoxAccounts.SuspendLayout();
             this.GroupBoxAccountInfo.SuspendLayout();
-            this.MenuMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // ListAccounts
@@ -56,7 +51,7 @@
             // GroupBoxAccounts
             // 
             this.GroupBoxAccounts.Controls.Add(this.ListAccounts);
-            this.GroupBoxAccounts.Location = new System.Drawing.Point(12, 28);
+            this.GroupBoxAccounts.Location = new System.Drawing.Point(12, 12);
             this.GroupBoxAccounts.Name = "GroupBoxAccounts";
             this.GroupBoxAccounts.Size = new System.Drawing.Size(181, 256);
             this.GroupBoxAccounts.TabIndex = 1;
@@ -70,7 +65,7 @@
             this.GroupBoxAccountInfo.Controls.Add(this.LabelAccountAuthType);
             this.GroupBoxAccountInfo.Controls.Add(this.LabelAccountId);
             this.GroupBoxAccountInfo.Controls.Add(this.LabelAccountName);
-            this.GroupBoxAccountInfo.Location = new System.Drawing.Point(199, 28);
+            this.GroupBoxAccountInfo.Location = new System.Drawing.Point(199, 12);
             this.GroupBoxAccountInfo.Name = "GroupBoxAccountInfo";
             this.GroupBoxAccountInfo.Size = new System.Drawing.Size(317, 256);
             this.GroupBoxAccountInfo.TabIndex = 2;
@@ -124,51 +119,6 @@
             this.LabelAccountName.TabIndex = 0;
             this.LabelAccountName.Text = "Account.Name";
             // 
-            // MenuMain
-            // 
-            this.MenuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuMainAccounts});
-            this.MenuMain.Location = new System.Drawing.Point(0, 0);
-            this.MenuMain.Name = "MenuMain";
-            this.MenuMain.Size = new System.Drawing.Size(524, 24);
-            this.MenuMain.TabIndex = 3;
-            this.MenuMain.Text = "MenuMain";
-            // 
-            // MenuMainAccounts
-            // 
-            this.MenuMainAccounts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuMainAccountsAdd,
-            this.MenuMainAccountsSep1});
-            this.MenuMainAccounts.Name = "MenuMainAccounts";
-            this.MenuMainAccounts.Size = new System.Drawing.Size(72, 20);
-            this.MenuMainAccounts.Text = "Аккаунты";
-            // 
-            // MenuMainAccountsAdd
-            // 
-            this.MenuMainAccountsAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.постоянныйToolStripMenuItem,
-            this.временнйыToolStripMenuItem});
-            this.MenuMainAccountsAdd.Name = "MenuMainAccountsAdd";
-            this.MenuMainAccountsAdd.Size = new System.Drawing.Size(126, 22);
-            this.MenuMainAccountsAdd.Text = "Добавить";
-            // 
-            // постоянныйToolStripMenuItem
-            // 
-            this.постоянныйToolStripMenuItem.Name = "постоянныйToolStripMenuItem";
-            this.постоянныйToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.постоянныйToolStripMenuItem.Text = "Постоянный";
-            // 
-            // временнйыToolStripMenuItem
-            // 
-            this.временнйыToolStripMenuItem.Name = "временнйыToolStripMenuItem";
-            this.временнйыToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.временнйыToolStripMenuItem.Text = "Временный";
-            // 
-            // MenuMainAccountsSep1
-            // 
-            this.MenuMainAccountsSep1.Name = "MenuMainAccountsSep1";
-            this.MenuMainAccountsSep1.Size = new System.Drawing.Size(123, 6);
-            // 
             // FormAccounts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,10 +126,9 @@
             this.ClientSize = new System.Drawing.Size(524, 292);
             this.Controls.Add(this.GroupBoxAccountInfo);
             this.Controls.Add(this.GroupBoxAccounts);
-            this.Controls.Add(this.MenuMain);
-            this.MainMenuStrip = this.MenuMain;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(540, 330);
+            this.Menu = this.MainMenu;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(540, 330);
             this.Name = "FormAccounts";
@@ -190,10 +139,7 @@
             this.GroupBoxAccounts.ResumeLayout(false);
             this.GroupBoxAccountInfo.ResumeLayout(false);
             this.GroupBoxAccountInfo.PerformLayout();
-            this.MenuMain.ResumeLayout(false);
-            this.MenuMain.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -206,12 +152,7 @@
         private System.Windows.Forms.Label LabelAccountId;
         private System.Windows.Forms.Label LabelAccountAuthType;
         private System.Windows.Forms.Button ButtonAccountExit;
-        private System.Windows.Forms.MenuStrip MenuMain;
-        private System.Windows.Forms.ToolStripMenuItem MenuMainAccounts;
-        private System.Windows.Forms.ToolStripMenuItem MenuMainAccountsAdd;
-        private System.Windows.Forms.ToolStripMenuItem постоянныйToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem временнйыToolStripMenuItem;
         private System.Windows.Forms.Label LabelAccountValid;
-        private System.Windows.Forms.ToolStripSeparator MenuMainAccountsSep1;
+        private System.Windows.Forms.MainMenu MainMenu;
     }
 }

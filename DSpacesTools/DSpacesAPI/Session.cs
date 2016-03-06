@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Configuration;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using DMessages;
 using DNetwork;
+using Type = DMessages.Type;
 
 namespace DSpacesAPI {
+    public enum SessionState {
+        Empty,
+        Anonymous,
+        Valid,
+        Invalid,        
+    }
+
     public class Session {
         public const int SidSize = 16;
-        public const int CkSize = 4;
-        public const string Protocol = "http://";
-        public const string Host = "spaces.ru";
+        public const int CkSize = 4;        
         public const string CookieUserLogin = "name";
         public const string CookieUserId = "user_id";
 
@@ -21,7 +29,7 @@ namespace DSpacesAPI {
         /// <summary>
         /// User id
         /// </summary>
-        public string Id { get; private set; }
+        public string UserId { get; private set; }
 
         /// <summary>
         /// Authorization code
@@ -34,61 +42,101 @@ namespace DSpacesAPI {
         private string Ck => Sid.Length == SidSize ? Sid.Substring(SidSize - CkSize - 1, CkSize) : string.Empty;
 
         /// <summary>
-        /// True if user logged ok
+        /// Session state
         /// </summary>
-        public bool Valid { get; private set; }
+        public SessionState State { get; private set; }
 
         /// <summary>
-        /// Reference to network with correct cookies for this account
+        /// Creation time
         /// </summary>
-        private Network Network { get; }
+        public DateTime CreationTime { get; private set; }
+
+        /// <summary>
+        /// Last valid network connection time
+        /// </summary>
+        public DateTime LastCheckTime { get; private set; }
+
+        public Network Network { get; private set; }
 
         public Session(Network network) {
             Network = network;
         }
 
-        public void Reset(bool clearCookies) {
+        public void Reset(bool clearCookies, Network network = null) {
             if (clearCookies) {
-                Network.ClearCookies();
+                network?.ClearCookies();
             }
 
             Login = string.Empty;
-            Id = string.Empty;
+            UserId = string.Empty;
             Sid = string.Empty;
-            Valid = false;
+            State = SessionState.Empty;
+            CreationTime = DateTime.Now;
+            LastCheckTime = DateTime.Now;
         }
 
 
-        public async Task<bool> Create(string sid) {
-            if (!CheckSidFormat(sid)) {
+        public bool CreateAnon() {
+            if (State != SessionState.Empty) {
                 return false;
             }
 
             Reset(true);
-
-            var checkPath = "/settings/?sid=" + sid;
-            await Network.Get(Protocol + Host + checkPath);
-
-            var possibleUserId = Network.GetCookieByName(new Uri(Protocol + Host), CookieUserId);
-
-            if (possibleUserId == string.Empty) {
-                return false;
-            }
-
-            Id = possibleUserId;
-            Login = await GetUserNameById(Id);
-
+            State = SessionState.Anonymous;
             return true;
         }
 
-        public async Task<string> GetUserNameById(string id) {
-            await Network.Get(Protocol + id + "." + Host);
-            return Network.GetCookieByName(new Uri(Protocol + Host), CookieUserLogin);
+        public async Task<Message> CheckStatus() {
+            if (!(State == SessionState.Invalid || State == SessionState.Valid)) {
+                return new Message(Type.Error, Error.SessionInvalidState);
+            }
+
+            LastCheckTime = DateTime.Now;
+
+            var checkPath = "/settings/?sid=" + Sid;
+            await Network.Get(Co.Network.Protocol + Co.Network.Host + checkPath);
+
+            var possibleUserId = Network.GetCookieByName(new Uri(Co.Network.Protocol + Co.Network.Host), CookieUserId);
+
+            if (possibleUserId == string.Empty) {
+                State = SessionState.Invalid;
+                return new Message(Type.Error, Error.SessionWrongSid);
+            }
+
+            State = SessionState.Valid;
+            UserId = possibleUserId;
+            Login = await GetCurrentUserNameById();
+
+            return new Message(Type.Success, Success.Default);
         }
 
-        private static bool CheckSidFormat(string sid) {
+        public async Task<Message> Create(string sid) {
+            Reset(true);
+
+            Sid = sid.Trim();
+
+            if (!CheckSidFormat() || State != SessionState.Empty) {
+                return new Message(Type.Error, Error.SessionWrongSid);
+            }
+
+            State = SessionState.Invalid;                                            
+            return await CheckStatus();
+        }
+
+        public async Task<string> GetCurrentUserNameById() {
+            if (State != SessionState.Valid) {
+                return string.Empty;
+            }
+
+            await Network.Get(Co.Network.Protocol + UserId + "." + Co.Network.Host);
+
+            return Network.GetUrlValueByParam(CookieUserLogin);
+        }
+
+        private bool CheckSidFormat() {
+            // TODO: regex?
             int trashVar;
-            return sid.Length == SidSize && !int.TryParse(sid, out trashVar);
+            return Sid.Length == SidSize && !int.TryParse(Sid, out trashVar);
         }
 
     }

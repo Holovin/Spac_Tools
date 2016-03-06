@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using DNetwork;
 using IPlugin;
 
@@ -10,7 +11,5 @@ namespace DSpacesAPI {
         public string InnerName { get; } = "base.api";
         public string Link => "http://spaces.ru";
         public int Version => 1;
-
-        public List<KeyValuePair<Session, Network>> Connections { get; private set; }
     }
 }

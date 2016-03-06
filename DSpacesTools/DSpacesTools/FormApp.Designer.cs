@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ButtonLogin = new System.Windows.Forms.Button();
+            this.components = new System.ComponentModel.Container();
             this.ListBoxPlugins = new System.Windows.Forms.ListBox();
             this.GroupBoxPlugins = new System.Windows.Forms.GroupBox();
             this.ButtonReloadPlugins = new System.Windows.Forms.Button();
@@ -40,23 +40,12 @@
             this.LabelPluginAuthor = new System.Windows.Forms.Label();
             this.LabelPluginVersion = new System.Windows.Forms.Label();
             this.LabelPluginName = new System.Windows.Forms.Label();
-            this.MenuMain = new System.Windows.Forms.MenuStrip();
-            this.MenuMainAccounts = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuMainAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenu = new System.Windows.Forms.MainMenu(this.components);
+            this.MainMenuSessionsItem = new System.Windows.Forms.MenuItem();
+            this.MainMenuAboutItem = new System.Windows.Forms.MenuItem();
             this.GroupBoxPlugins.SuspendLayout();
             this.GroupBoxMenu.SuspendLayout();
-            this.MenuMain.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // ButtonLogin
-            // 
-            this.ButtonLogin.Location = new System.Drawing.Point(212, 320);
-            this.ButtonLogin.Name = "ButtonLogin";
-            this.ButtonLogin.Size = new System.Drawing.Size(106, 23);
-            this.ButtonLogin.TabIndex = 1;
-            this.ButtonLogin.Text = "Login test";
-            this.ButtonLogin.UseVisualStyleBackColor = true;
-            this.ButtonLogin.Click += new System.EventHandler(this.ButtonLogin_Click);
             // 
             // ListBoxPlugins
             // 
@@ -72,16 +61,16 @@
             // 
             this.GroupBoxPlugins.Controls.Add(this.ButtonReloadPlugins);
             this.GroupBoxPlugins.Controls.Add(this.ListBoxPlugins);
-            this.GroupBoxPlugins.Location = new System.Drawing.Point(12, 27);
+            this.GroupBoxPlugins.Location = new System.Drawing.Point(12, 3);
             this.GroupBoxPlugins.Name = "GroupBoxPlugins";
-            this.GroupBoxPlugins.Size = new System.Drawing.Size(200, 344);
+            this.GroupBoxPlugins.Size = new System.Drawing.Size(200, 357);
             this.GroupBoxPlugins.TabIndex = 3;
             this.GroupBoxPlugins.TabStop = false;
             this.GroupBoxPlugins.Text = "Плагины";
             // 
             // ButtonReloadPlugins
             // 
-            this.ButtonReloadPlugins.Location = new System.Drawing.Point(3, 310);
+            this.ButtonReloadPlugins.Location = new System.Drawing.Point(3, 318);
             this.ButtonReloadPlugins.Name = "ButtonReloadPlugins";
             this.ButtonReloadPlugins.Size = new System.Drawing.Size(194, 28);
             this.ButtonReloadPlugins.TabIndex = 3;
@@ -94,14 +83,13 @@
             this.GroupBoxMenu.Controls.Add(this.LnkLabelCompability);
             this.GroupBoxMenu.Controls.Add(this.ButtonPluginRun);
             this.GroupBoxMenu.Controls.Add(this.TextBoxPluginDescription);
-            this.GroupBoxMenu.Controls.Add(this.ButtonLogin);
             this.GroupBoxMenu.Controls.Add(this.LabelPluginLink);
             this.GroupBoxMenu.Controls.Add(this.LabelPluginAuthor);
             this.GroupBoxMenu.Controls.Add(this.LabelPluginVersion);
             this.GroupBoxMenu.Controls.Add(this.LabelPluginName);
-            this.GroupBoxMenu.Location = new System.Drawing.Point(215, 27);
+            this.GroupBoxMenu.Location = new System.Drawing.Point(215, 3);
             this.GroupBoxMenu.Name = "GroupBoxMenu";
-            this.GroupBoxMenu.Size = new System.Drawing.Size(464, 344);
+            this.GroupBoxMenu.Size = new System.Drawing.Size(464, 357);
             this.GroupBoxMenu.TabIndex = 4;
             this.GroupBoxMenu.TabStop = false;
             this.GroupBoxMenu.Text = "Информация и действия";
@@ -110,7 +98,7 @@
             // 
             this.LnkLabelCompability.AutoSize = true;
             this.LnkLabelCompability.LinkColor = System.Drawing.Color.Silver;
-            this.LnkLabelCompability.Location = new System.Drawing.Point(15, 318);
+            this.LnkLabelCompability.Location = new System.Drawing.Point(15, 322);
             this.LnkLabelCompability.Name = "LnkLabelCompability";
             this.LnkLabelCompability.Size = new System.Drawing.Size(142, 13);
             this.LnkLabelCompability.TabIndex = 8;
@@ -120,7 +108,7 @@
             // 
             // ButtonPluginRun
             // 
-            this.ButtonPluginRun.Location = new System.Drawing.Point(324, 316);
+            this.ButtonPluginRun.Location = new System.Drawing.Point(323, 318);
             this.ButtonPluginRun.Name = "ButtonPluginRun";
             this.ButtonPluginRun.Size = new System.Drawing.Size(134, 28);
             this.ButtonPluginRun.TabIndex = 7;
@@ -177,29 +165,22 @@
             this.LabelPluginName.TabIndex = 2;
             this.LabelPluginName.Text = "Plugin.Name";
             // 
-            // MenuMain
+            // MainMenu
             // 
-            this.MenuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuMainAccounts,
-            this.MenuMainAbout});
-            this.MenuMain.Location = new System.Drawing.Point(0, 0);
-            this.MenuMain.Name = "MenuMain";
-            this.MenuMain.Size = new System.Drawing.Size(684, 24);
-            this.MenuMain.TabIndex = 5;
+            this.MainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.MainMenuSessionsItem,
+            this.MainMenuAboutItem});
             // 
-            // MenuMainAccounts
+            // MainMenuSessionsItem
             // 
-            this.MenuMainAccounts.Name = "MenuMainAccounts";
-            this.MenuMainAccounts.Size = new System.Drawing.Size(72, 20);
-            this.MenuMainAccounts.Text = "Аккаунты";
-            this.MenuMainAccounts.Click += new System.EventHandler(this.MenuMainAccounts_Click);
+            this.MainMenuSessionsItem.Index = 0;
+            this.MainMenuSessionsItem.Text = "Сессии";
+            this.MainMenuSessionsItem.Click += new System.EventHandler(this.MainMenuSessionsItem_Click);
             // 
-            // MenuMainAbout
+            // MainMenuAboutItem
             // 
-            this.MenuMainAbout.Name = "MenuMainAbout";
-            this.MenuMainAbout.Size = new System.Drawing.Size(94, 20);
-            this.MenuMainAbout.Text = "О программе";
-            this.MenuMainAbout.Click += new System.EventHandler(this.MenuMainAbout_Click);
+            this.MainMenuAboutItem.Index = 1;
+            this.MainMenuAboutItem.Text = "О программе";
             // 
             // FormApp
             // 
@@ -208,10 +189,9 @@
             this.ClientSize = new System.Drawing.Size(684, 382);
             this.Controls.Add(this.GroupBoxMenu);
             this.Controls.Add(this.GroupBoxPlugins);
-            this.Controls.Add(this.MenuMain);
-            this.MainMenuStrip = this.MenuMain;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(700, 420);
+            this.Menu = this.MainMenu;
             this.MinimumSize = new System.Drawing.Size(700, 420);
             this.Name = "FormApp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -220,15 +200,11 @@
             this.GroupBoxPlugins.ResumeLayout(false);
             this.GroupBoxMenu.ResumeLayout(false);
             this.GroupBoxMenu.PerformLayout();
-            this.MenuMain.ResumeLayout(false);
-            this.MenuMain.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button ButtonLogin;
         private System.Windows.Forms.ListBox ListBoxPlugins;
         private System.Windows.Forms.GroupBox GroupBoxPlugins;
         private System.Windows.Forms.GroupBox GroupBoxMenu;
@@ -240,9 +216,9 @@
         private System.Windows.Forms.Label LabelPluginName;
         private System.Windows.Forms.Button ButtonPluginRun;
         private System.Windows.Forms.LinkLabel LnkLabelCompability;
-        private System.Windows.Forms.MenuStrip MenuMain;
-        private System.Windows.Forms.ToolStripMenuItem MenuMainAccounts;
-        private System.Windows.Forms.ToolStripMenuItem MenuMainAbout;
+        private System.Windows.Forms.MainMenu MainMenu;
+        private System.Windows.Forms.MenuItem MainMenuAboutItem;
+        private System.Windows.Forms.MenuItem MainMenuSessionsItem;
     }
 }
 

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSpacesToolsCore", "DSpacesTools\DSpacesToolsCore.csproj", "{2CA5C98A-19BD-46DB-84E5-3319CFA5A230}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSpacesTools", "DSpacesTools\DSpacesTools.csproj", "{2CA5C98A-19BD-46DB-84E5-3319CFA5A230}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPluginDemo", "DPluginDemo\DPluginDemo.csproj", "{729D4BC3-2514-461A-947A-2734F5A300AF}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IConnector", "IPlugin\IConnector.csproj", "{6E8E4C14-7D50-4CC2-8C85-A3CBB1C5D568}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSpacesAPI", "DSpacesAPI\DSpacesAPI.csproj", "{56224F45-A169-4790-B99A-FA114787573A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSharedCore", "DMessages\DSharedCore.csproj", "{C11790ED-B720-4E45-A7DD-5EB48B8BB1CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{56224F45-A169-4790-B99A-FA114787573A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56224F45-A169-4790-B99A-FA114787573A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56224F45-A169-4790-B99A-FA114787573A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C11790ED-B720-4E45-A7DD-5EB48B8BB1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C11790ED-B720-4E45-A7DD-5EB48B8BB1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C11790ED-B720-4E45-A7DD-5EB48B8BB1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C11790ED-B720-4E45-A7DD-5EB48B8BB1CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
