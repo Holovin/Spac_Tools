@@ -97,6 +97,33 @@ namespace DSpacesTools.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на (загрузка).
+        /// </summary>
+        internal static string Common_LoadingBraces {
+            get {
+                return ResourceManager.GetString("Common_LoadingBraces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Критическая ошибка приложения.
+        /// </summary>
+        internal static string ErrorCriticalGlobalHeader {
+            get {
+                return ResourceManager.GetString("ErrorCriticalGlobalHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Что-то пошло не так....
+        /// </summary>
+        internal static string ErrorCriticalGlobalMessage {
+            get {
+                return ResourceManager.GetString("ErrorCriticalGlobalMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вы уверены?.
         /// </summary>
         internal static string ModalTitleYouSure {

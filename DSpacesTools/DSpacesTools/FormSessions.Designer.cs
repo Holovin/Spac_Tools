@@ -27,8 +27,9 @@
             this.GroupBoxSessions = new System.Windows.Forms.GroupBox();
             this.ListBoxSessions = new System.Windows.Forms.ListBox();
             this.MainMenu = new System.Windows.Forms.MainMenu(this.components);
-            this.MainMenuAddItem = new System.Windows.Forms.MenuItem();
-            this.MainMenuRemoveItem = new System.Windows.Forms.MenuItem();
+            this.MainMenuControlItem = new System.Windows.Forms.MenuItem();
+            this.MainMenuControlAddItem = new System.Windows.Forms.MenuItem();
+            this.MainMenuControlRefreshItem = new System.Windows.Forms.MenuItem();
             this.GroupBoxSessionInfo = new System.Windows.Forms.GroupBox();
             this.LabelSid = new System.Windows.Forms.Label();
             this.LabelStatus = new System.Windows.Forms.Label();
@@ -41,7 +42,7 @@
             this.LabelSidStatic = new System.Windows.Forms.Label();
             this.LabelAccountId = new System.Windows.Forms.Label();
             this.LabelLogin = new System.Windows.Forms.Label();
-            this.MainMenuRefreshItem = new System.Windows.Forms.MenuItem();
+            this.MainMenuControlRemoveItem = new System.Windows.Forms.MenuItem();
             this.GroupBoxSessions.SuspendLayout();
             this.GroupBoxSessionInfo.SuspendLayout();
             this.SuspendLayout();
@@ -71,21 +72,28 @@
             // MainMenu
             // 
             this.MainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.MainMenuAddItem,
-            this.MainMenuRefreshItem,
-            this.MainMenuRemoveItem});
+            this.MainMenuControlItem});
             // 
-            // MainMenuAddItem
+            // MainMenuControlItem
             // 
-            this.MainMenuAddItem.Index = 0;
-            this.MainMenuAddItem.Text = "Добавить";
-            this.MainMenuAddItem.Click += new System.EventHandler(this.MainMenuAddItem_Click);
+            this.MainMenuControlItem.Index = 0;
+            this.MainMenuControlItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.MainMenuControlAddItem,
+            this.MainMenuControlRefreshItem,
+            this.MainMenuControlRemoveItem});
+            this.MainMenuControlItem.Text = "Управление";
             // 
-            // MainMenuRemoveItem
+            // MainMenuControlAddItem
             // 
-            this.MainMenuRemoveItem.Index = 2;
-            this.MainMenuRemoveItem.Text = "Удалить";
-            this.MainMenuRemoveItem.Click += new System.EventHandler(this.MainMenuRemoveItem_Click);
+            this.MainMenuControlAddItem.Index = 0;
+            this.MainMenuControlAddItem.Text = "Добавить сессию (SID)";
+            this.MainMenuControlAddItem.Click += new System.EventHandler(this.MainMenuControlAddItem_Click);
+            // 
+            // MainMenuControlRefreshItem
+            // 
+            this.MainMenuControlRefreshItem.Index = 1;
+            this.MainMenuControlRefreshItem.Text = "Обновить список";
+            this.MainMenuControlRefreshItem.Click += new System.EventHandler(this.MainMenuControlRefreshItem_Click);
             // 
             // GroupBoxSessionInfo
             // 
@@ -137,7 +145,7 @@
             // LabelLinkAuth
             // 
             this.LabelLinkAuth.AutoSize = true;
-            this.LabelLinkAuth.Location = new System.Drawing.Point(213, 48);
+            this.LabelLinkAuth.Location = new System.Drawing.Point(210, 48);
             this.LabelLinkAuth.Name = "LabelLinkAuth";
             this.LabelLinkAuth.Size = new System.Drawing.Size(109, 13);
             this.LabelLinkAuth.TabIndex = 8;
@@ -152,6 +160,7 @@
             this.LabelTimeChecked.Size = new System.Drawing.Size(115, 13);
             this.LabelTimeChecked.TabIndex = 7;
             this.LabelTimeChecked.Text = "00.00.0000 в 00:00:00";
+            this.LabelTimeChecked.Click += new System.EventHandler(this.LabelTimeChecked_Click);
             // 
             // LabelTimeCreated
             // 
@@ -191,13 +200,13 @@
             // 
             // LabelAccountId
             // 
-            this.LabelAccountId.AutoSize = true;
             this.LabelAccountId.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.LabelAccountId.Location = new System.Drawing.Point(239, 16);
+            this.LabelAccountId.Location = new System.Drawing.Point(238, 16);
             this.LabelAccountId.Name = "LabelAccountId";
+            this.LabelAccountId.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.LabelAccountId.Size = new System.Drawing.Size(84, 13);
             this.LabelAccountId.TabIndex = 2;
-            this.LabelAccountId.Text = "ID: 1234567890";
+            this.LabelAccountId.Text = "12345";
             // 
             // LabelLogin
             // 
@@ -208,11 +217,11 @@
             this.LabelLogin.TabIndex = 0;
             this.LabelLogin.Text = "Login1234567890";
             // 
-            // MainMenuRefreshItem
+            // MainMenuControlRemoveItem
             // 
-            this.MainMenuRefreshItem.Index = 1;
-            this.MainMenuRefreshItem.Text = "Обновить";
-            this.MainMenuRefreshItem.Click += new System.EventHandler(this.MainMenuRefreshItem_Click);
+            this.MainMenuControlRemoveItem.Index = 2;
+            this.MainMenuControlRemoveItem.Text = "Удалить выбранную сессию";
+            this.MainMenuControlRemoveItem.Click += new System.EventHandler(this.MainMenuControlRemoveItem_Click);
             // 
             // FormSessions
             // 
@@ -244,8 +253,6 @@
         private System.Windows.Forms.MainMenu MainMenu;
         private System.Windows.Forms.ListBox ListBoxSessions;
         private System.Windows.Forms.GroupBox GroupBoxSessionInfo;
-        private System.Windows.Forms.MenuItem MainMenuAddItem;
-        private System.Windows.Forms.MenuItem MainMenuRemoveItem;
         private System.Windows.Forms.Label LabelLogin;
         private System.Windows.Forms.Label LabelAccountId;
         private System.Windows.Forms.Label LabelTimeChecked;
@@ -257,6 +264,9 @@
         private System.Windows.Forms.Label LabelStatus;
         private System.Windows.Forms.Label LabelStatusStatic;
         private System.Windows.Forms.Label LabelSid;
-        private System.Windows.Forms.MenuItem MainMenuRefreshItem;
+        private System.Windows.Forms.MenuItem MainMenuControlItem;
+        private System.Windows.Forms.MenuItem MainMenuControlAddItem;
+        private System.Windows.Forms.MenuItem MainMenuControlRefreshItem;
+        private System.Windows.Forms.MenuItem MainMenuControlRemoveItem;
     }
 }

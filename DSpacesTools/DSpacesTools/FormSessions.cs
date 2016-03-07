@@ -13,51 +13,35 @@ using DSpacesTools.Properties;
 
 namespace DSpacesTools {
     public partial class FormSessions : Form {
-        public FormSessions() {
-            InitializeComponent();
-            RefreshSessionList();
-            Init();
-        }
-       
-        private void ListBoxSessions_SelectedIndexChanged(object sender, EventArgs e) {
-            LoadSession(ListBoxSessions.SelectedIndex);
-        }
+        private SessionManager sessionManager;
 
-
-        private void MainMenuRemoveItem_Click(object sender, EventArgs e) {
-            RemoveSession(ListBoxSessions.SelectedIndex);
-        }
-
-        private void Init() {
-            Text = Resources.ApplicationName;
-        }
-
+        // Logic //
         private void RemoveSession(int id) {
             ListBoxSessions.Items.Remove(id);
-            Program.AppCore.SessionManager.RemoveById(id).ShowError();
+            sessionManager.RemoveById(id).ShowError();
             RefreshSessionList();
         }
 
         private void RefreshSessionList() {
             ListBoxSessions.Items.Clear();
-            ListBoxSessions.Items.Add("Анонимный");
+            ListBoxSessions.Items.Add("Анонимный"); // TODO: do something with it
 
-            for (var i = 1; i < Program.AppCore.SessionManager.Sessions.Count; i++) {
-                ListBoxSessions.Items.Add(Program.AppCore.SessionManager.Sessions[i].Login);
+            for (var i = 1; i < sessionManager.Sessions.Count; i++) {
+                ListBoxSessions.Items.Add(sessionManager.Sessions[i].Login);
             }
 
             ListBoxSessions.SelectedIndex = 0;
         }
 
         private void LoadSession(int id) {
-            LabelLogin.Text = Program.AppCore.SessionManager.Sessions[id].Login;
-            LabelSid.Text = Program.AppCore.SessionManager.Sessions[id].Sid;
-            LabelAccountId.Text = Program.AppCore.SessionManager.Sessions[id].UserId;
+            LabelLogin.Text = sessionManager.Sessions[id].Login;
+            LabelSid.Text = sessionManager.Sessions[id].Sid;
+            LabelAccountId.Text = sessionManager.Sessions[id].UserId;
 
-            LabelTimeChecked.Text = Program.AppCore.SessionManager.Sessions[id].LastCheckTime.ToString(CultureInfo.InvariantCulture);
-            LabelTimeCreated.Text = Program.AppCore.SessionManager.Sessions[id].CreationTime.ToString(CultureInfo.InvariantCulture);
+            LabelTimeChecked.Text = sessionManager.Sessions[id].LastCheckTime.ToString(CultureInfo.InvariantCulture);
+            LabelTimeCreated.Text = sessionManager.Sessions[id].CreationTime.ToString(CultureInfo.InvariantCulture);
 
-            switch (Program.AppCore.SessionManager.Sessions[id].State) {
+            switch (sessionManager.Sessions[id].State) {
                 case SessionState.Empty:
                     LabelLogin.Text = Resources.UnknownValue;
                     LabelSid.Text = Resources.UnknownValue;
@@ -86,14 +70,49 @@ namespace DSpacesTools {
             }
         }
 
-        private void MainMenuAddItem_Click(object sender, EventArgs e) {
-            var form = new FormSessionAdd();
+        private async void RefreshSession(int id) {
+            LabelTimeChecked.Text = Resources.Common_LoadingBraces;
+
+            var result = await sessionManager.Sessions[id].CheckStatus();
+            result.ShowError();
+
+            LoadSession(id);
+        }
+
+        // Gui methods //
+        public FormSessions(ref SessionManager sessionManager) {
+            InitializeComponent();
+
+            Init(ref sessionManager);
+            RefreshSessionList();            
+        }
+
+        private void ListBoxSessions_SelectedIndexChanged(object sender, EventArgs e) {
+            LoadSession(ListBoxSessions.SelectedIndex);
+        }
+
+        private void Init(ref SessionManager sm) {
+            sessionManager = sm;
+
+            Text = Resources.ApplicationName;
+        }
+
+        private void MainMenuControlAddItem_Click(object sender, EventArgs e) {
+            var form = new FormSessionAdd(ref sessionManager);
             form.ShowDialog();
             RefreshSessionList();
         }
 
-        private void MainMenuRefreshItem_Click(object sender, EventArgs e) {
+        private void MainMenuControlRefreshItem_Click(object sender, EventArgs e) {
             RefreshSessionList();
+        }
+
+        private void MainMenuControlRemoveItem_Click(object sender, EventArgs e) {
+            RemoveSession(ListBoxSessions.SelectedIndex);
+        }
+
+        private void LabelTimeChecked_Click(object sender, EventArgs e) {
+            RefreshSession(ListBoxSessions.SelectedIndex);
         }
     }
 }

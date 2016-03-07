@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,23 +19,11 @@ namespace DSpacesTools {
             AddAnonymousUser();
         }
 
-        private bool AddAnonymousUser() {
-            var network = new Network();
-            var session = new Session(network);
-
-            if (!session.CreateAnon()) {
-                return false;
-            }
-
-            Sessions.Add(session);
-            return true;
-        }
-
         public async Task<Message> Add(string sid) {
             var network = new Network();
             var session = new Session(network);
 
-            var result = await session.Create(sid);
+            var result = await session.Create(sid).ConfigureAwait(false);
 
             if (!result.GetSuccess()) {
                 return result;
@@ -42,13 +31,8 @@ namespace DSpacesTools {
 
             RemoveDuplicates(session);
             Sessions.Add(session);
-            
-            return new Message(Type.Success, Success.Default);
-        }
 
-        private void RemoveDuplicates(Session newSession) {
-            var userId = newSession.UserId;
-            Sessions.RemoveAll(item => item.UserId == newSession.UserId);
+            return new Message(Type.Success, Success.Default);
         }
 
         public Message RemoveById(int id) {
@@ -62,6 +46,22 @@ namespace DSpacesTools {
 
         public bool RemoveByName(string login) {
             return Sessions.RemoveAll(item => item.Login == login) > 0;
+        }
+
+        private bool AddAnonymousUser() {
+            var network = new Network();
+            var session = new Session(network);
+
+            if (!session.CreateAnon()) {
+                return false;
+            }
+
+            Sessions.Add(session);
+            return true;
+        }
+
+        private void RemoveDuplicates(Session newSession) {
+            Sessions.RemoveAll(item => item.UserId == newSession.UserId);
         }
     }
 }

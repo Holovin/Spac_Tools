@@ -75,6 +75,18 @@ namespace DSpacesAPI {
             LastCheckTime = DateTime.Now;
         }
 
+        public async Task<Message> Create(string sid) {
+            Reset(true);
+
+            Sid = sid.Trim();
+
+            if (!CheckSidFormat() || State != SessionState.Empty) {
+                return new Message(Type.Error, Error.SessionWrongSid);
+            }
+
+            State = SessionState.Invalid;
+            return await CheckStatus().ConfigureAwait(false);
+        }
 
         public bool CreateAnon() {
             if (State != SessionState.Empty) {
@@ -87,15 +99,24 @@ namespace DSpacesAPI {
         }
 
         public async Task<Message> CheckStatus() {
-            if (!(State == SessionState.Invalid || State == SessionState.Valid)) {
-                return new Message(Type.Error, Error.SessionInvalidState);
+            switch (State) {
+                case SessionState.Empty:
+                    return new Message(Type.Error, Error.SessionInvalidState);
+
+                case SessionState.Anonymous:
+                    return new Message(Type.Error, Error.SessionUnsupportedForAnon);
+
+                case SessionState.Valid:
+                case SessionState.Invalid:
+                default:
+                    // do nothing
+                    break;
             }
 
             LastCheckTime = DateTime.Now;
 
             var checkPath = "/settings/?sid=" + Sid;
-            await Network.Get(Co.Network.Protocol + Co.Network.Host + checkPath);
-
+            await Network.Get(Co.Network.Protocol + Co.Network.Host + checkPath).ConfigureAwait(false);
             var possibleUserId = Network.GetCookieByName(new Uri(Co.Network.Protocol + Co.Network.Host), CookieUserId);
 
             if (possibleUserId == string.Empty) {
@@ -105,22 +126,9 @@ namespace DSpacesAPI {
 
             State = SessionState.Valid;
             UserId = possibleUserId;
-            Login = await GetCurrentUserNameById();
+            Login = await GetCurrentUserNameById().ConfigureAwait(false);
 
             return new Message(Type.Success, Success.Default);
-        }
-
-        public async Task<Message> Create(string sid) {
-            Reset(true);
-
-            Sid = sid.Trim();
-
-            if (!CheckSidFormat() || State != SessionState.Empty) {
-                return new Message(Type.Error, Error.SessionWrongSid);
-            }
-
-            State = SessionState.Invalid;                                            
-            return await CheckStatus();
         }
 
         public async Task<string> GetCurrentUserNameById() {
@@ -128,8 +136,7 @@ namespace DSpacesAPI {
                 return string.Empty;
             }
 
-            await Network.Get(Co.Network.Protocol + UserId + "." + Co.Network.Host);
-
+            await Network.Get(Co.Network.Protocol + UserId + "." + Co.Network.Host).ConfigureAwait(false);
             return Network.GetUrlValueByParam(CookieUserLogin);
         }
 
@@ -138,6 +145,5 @@ namespace DSpacesAPI {
             int trashVar;
             return Sid.Length == SidSize && !int.TryParse(Sid, out trashVar);
         }
-
     }
 }

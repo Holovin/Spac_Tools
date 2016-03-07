@@ -73,7 +73,6 @@
     <Compile Include="FormApp.Designer.cs">
       <DependentUpon>FormApp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core.cs" />
     <Compile Include="FormSessions.cs">
       <SubType>Form</SubType>
     </Compile>

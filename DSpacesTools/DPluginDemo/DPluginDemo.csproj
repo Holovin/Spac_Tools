@@ -62,6 +62,10 @@
       <Project>{63e0cbbc-95b6-4cd3-a267-2608c9ac0f68}</Project>
       <Name>DNetwork</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DSpacesTools\DSpacesTools.csproj">
+      <Project>{2ca5c98a-19bd-46db-84e5-3319cfa5a230}</Project>
+      <Name>DSpacesTools</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IPlugin\IConnector.csproj">
       <Project>{6e8e4c14-7d50-4cc2-8c85-a3cbb1c5d568}</Project>
       <Name>IConnector</Name>

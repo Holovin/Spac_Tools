@@ -12,9 +12,11 @@ namespace DMessages {
     public enum Error {
         Default,
         Unknown,
+        CorePlguinCheckErr,
         SessionForbiddenRemove,
         SessionWrongSid,
         SessionInvalidState,
+        SessionUnsupportedForAnon,
     }
 
     public enum Success {
@@ -129,24 +131,43 @@ namespace DMessages {
             }
 
             switch ((Error)message) {
+                // Base messages
                 case Error.Default:
                     output += "Ошибка";
                     break;
 
                 case Error.Unknown:
+                    output += "Неизвестная ошибка";
                     break;
 
+                // Core/Critical errors
+                case Error.CorePlguinCheckErr:
+                    output += "Ошибка загрузки базовых плагинов";
+                    break;
+
+                // Session errors
                 case Error.SessionForbiddenRemove:
                     output += "Нельзя удалить анонимный доступ";
                     break;
 
+                case Error.SessionWrongSid:
+                    output += "Сессия устарела, данный sid не относится ни к одному аккаунту";
+                    break;
+
+                case Error.SessionInvalidState:
+                    output += "Невозможно выполнить запрос, неверное состояние сессии";
+                    break;
+
+                case Error.SessionUnsupportedForAnon:
+                    output += "Операция не поддерживается для анонимного доступа";
+                    break;
+
                 default:
-                    output += "[Сообщение не задано]";
+                    output += "[Текст ошибки не указан]";
                     break;
             }
 
             output += " (" + (message) + ")";
-
             return output;
         }
     }

@@ -149,9 +149,9 @@
             this.LabelSuccess.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LabelSuccess.Location = new System.Drawing.Point(9, 44);
             this.LabelSuccess.Name = "LabelSuccess";
-            this.LabelSuccess.Size = new System.Drawing.Size(102, 13);
+            this.LabelSuccess.Size = new System.Drawing.Size(217, 26);
             this.LabelSuccess.TabIndex = 0;
-            this.LabelSuccess.Text = "Аккаунт добавлен.";
+            this.LabelSuccess.Text = "Аккаунт добавлен.\r\nЭто оконо будет закрыто через 5 секунд.\r\n";
             // 
             // FormSessionAdd
             // 
@@ -159,7 +159,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(354, 217);
             this.Controls.Add(this.Tabs);
-            this.DoubleBuffered = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSessionAdd";

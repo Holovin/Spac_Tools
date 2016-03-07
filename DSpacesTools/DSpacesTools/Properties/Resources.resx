@@ -161,4 +161,13 @@
   <data name="SessionStateInvalid" xml:space="preserve">
     <value>Некорректная</value>
   </data>
+  <data name="Common_LoadingBraces" xml:space="preserve">
+    <value>(загрузка)</value>
+  </data>
+  <data name="ErrorCriticalGlobalHeader" xml:space="preserve">
+    <value>Критическая ошибка приложения</value>
+  </data>
+  <data name="ErrorCriticalGlobalMessage" xml:space="preserve">
+    <value>Что-то пошло не так...</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -79,6 +80,10 @@ namespace DNetwork {
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
             httpClient.DefaultRequestHeaders.ExpectContinue = false;
+
+            RecivedData = string.Empty;
+            RecivedHttpCode = HttpStatusCode.Forbidden;
+            RecivedUri = new Uri("http://localhost/");
         }
 
         /// <summary>
@@ -116,6 +121,11 @@ namespace DNetwork {
         }
 
         public string GetUrlValueByParam(string param) {
+            if (RecivedUri.Query.Length < 2) {
+                return string.Empty;
+            }
+
+            // From 1st symbol for remove "?" at zero position    
             var url = RecivedUri.Query.Substring(1).Split('&');
            
             foreach (var temp in url.Where(item => item.Length != 0).Select(item => item.Split('=')).Where(temp => temp[0] == param)) {
@@ -130,9 +140,9 @@ namespace DNetwork {
         /// </summary>
         /// <param name="url">Request url</param>
         /// <returns>No return value</returns>
-        public async Task Get(string url) {
+        public async Task<string> Get(string url) {
             using (var response = await httpClient.GetAsync(url).ConfigureAwait(false)) {
-                await ProcessRequest(response);
+                return await ProcessRequest(response).ConfigureAwait(false);
             }
         }        
 
@@ -142,10 +152,10 @@ namespace DNetwork {
         /// <param name="url">Request url</param>
         /// <param name="postParams">List with key=value post params</param>
         /// <returns>No return value</returns>
-        public async Task Post(string url, List<KeyValuePair<string, string>> postParams) {
+        public async Task<string> Post(string url, List<KeyValuePair<string, string>> postParams) {
             using (var postHeaders = new FormUrlEncodedContent(postParams))
             using (var response = await httpClient.PostAsync(url, postHeaders).ConfigureAwait(false)) {
-                await ProcessRequest(response);
+                return await ProcessRequest(response).ConfigureAwait(false);
             }
         }
 
@@ -155,14 +165,14 @@ namespace DNetwork {
         /// </summary>
         /// <param name="response">Response data from HttpClient</param>
         /// <returns>No return value</returns>
-        private async Task ProcessRequest(HttpResponseMessage response) {
-            using (var stream = new StreamReader(await response.Content.ReadAsStreamAsync())) {
-                RecivedData = stream.ReadToEnd();
+        private async Task<string> ProcessRequest(HttpResponseMessage response) {
+            using (var stream = new StreamReader(await response.Content.ReadAsStreamAsync().ConfigureAwait(false))) {
+                RecivedData = await stream.ReadToEndAsync().ConfigureAwait(false);
                 RecivedHttpCode = response.StatusCode;
-
-                // TODO: check this                
                 RecivedUri = response.RequestMessage.RequestUri;
             }
+
+            return RecivedData;
         }
     }
 }

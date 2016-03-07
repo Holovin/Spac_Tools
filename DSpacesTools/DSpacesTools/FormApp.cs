@@ -14,8 +14,16 @@ using DSpacesTools.Properties;
 
 namespace DSpacesTools {
     public partial class FormApp : Form {
-        public FormApp() {
+        private Network network;
+        private PluginContainer pluginContainer;
+        private SessionManager sessionManager;
+
+        public FormApp(ref Network network, ref PluginContainer pluginContainer, ref SessionManager sessionManager) {
             InitializeComponent();
+
+            this.network = network;
+            this.pluginContainer = pluginContainer;
+            this.sessionManager = sessionManager;
         }
 
         private void App_Load(object sender, EventArgs e) {
@@ -31,10 +39,10 @@ namespace DSpacesTools {
         }
 
         private void RefreshPluginList() {
-            Program.AppCore.Load();
+            pluginContainer.Load();
 
             ListBoxPlugins.Items.Clear();
-            foreach (var plugin in Program.AppCore.PluginContainer.Plugins) {
+            foreach (var plugin in pluginContainer.Plugins) {
                 ListBoxPlugins.Items.Add(new KeyValuePair<string, string>(plugin.InnerName, plugin.Name));
             }
 
@@ -42,16 +50,16 @@ namespace DSpacesTools {
         }
 
         private void LoadPlugin(int id) {
-            LabelPluginName.Text = Program.AppCore.PluginContainer.Plugins[id].Name;
-            LabelPluginAuthor.Text = Program.AppCore.PluginContainer.Plugins[id].Author;
+            LabelPluginName.Text = pluginContainer.Plugins[id].Name;
+            LabelPluginAuthor.Text = pluginContainer.Plugins[id].Author;
             LabelPluginLink.Links.Clear();
             LabelPluginLink.Links.Add(new LinkLabel.Link() {
-                LinkData = Program.AppCore.PluginContainer.Plugins[id].Link                
+                LinkData = pluginContainer.Plugins[id].Link                
             });
-            LabelPluginVersion.Text = Resources.VersionShort + Program.AppCore.PluginContainer.Plugins[id].Version;
-            TextBoxPluginDescription.Text = Program.AppCore.PluginContainer.Plugins[id].Description;
+            LabelPluginVersion.Text = Resources.VersionShort + pluginContainer.Plugins[id].Version;
+            TextBoxPluginDescription.Text = pluginContainer.Plugins[id].Description;
 
-            if (Program.AppCore.PluginContainer.CheckDependency(id)) {
+            if (pluginContainer.CheckDependency(id)) {
                 EnablePlugin(id);
             }
             else {
@@ -70,12 +78,12 @@ namespace DSpacesTools {
         }
 
         private bool RunPlugin(int id) {
-            Program.AppCore.PluginContainer.Plugins[0].Run(this);
+            pluginContainer.Plugins[0].Run(this.FindForm(), null);
             return true;
         }
 
-        private static string GetCompabilityVersion(int id) {
-            return Program.AppCore.PluginContainer.GetCompabilityList(id).
+        private string GetCompabilityVersion(int id) {
+            return pluginContainer.GetCompabilityList(id).
                 Aggregate(@"Имя файла / Версия (min; max) (если 0 - любая)", (current, req) => current + ("\n" + req.Key + @": " + req.Value[0] + @"; " + req.Value[1]));
         }
        
@@ -106,17 +114,8 @@ namespace DSpacesTools {
             MessageBox.Show(this, GetCompabilityVersion(ListBoxPlugins.SelectedIndex), "Информация о совместимости");
         }
 
-        private void MenuMainAbout_Click(object sender, EventArgs e) {
-            MessageBox.Show(@"by " + Resources.AppAuthor + @", 2016", Resources.ApplicationName);
-        }
-
-        private void MenuMainAccounts_Click(object sender, EventArgs e) {
-            var form = new FormAccounts();
-            form.ShowDialog();
-        }
-
         private void MainMenuSessionsItem_Click(object sender, EventArgs e) {
-            var form = new FormSessions();
+            var form = new FormSessions(ref sessionManager);
             form.ShowDialog();
         }
     }
