@@ -1,6 +1,6 @@
 ﻿namespace DPluginDemo
 {
-    partial class PluginGUI
+    partial class PluginGui
     {
         /// <summary>
         /// Required designer variable.
@@ -51,16 +51,18 @@
             this.ButtonCheckNetwork.UseVisualStyleBackColor = true;
             this.ButtonCheckNetwork.Click += new System.EventHandler(this.ButtonCheckNetwork_Click);
             // 
-            // PluginGUI
+            // PluginGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(494, 251);
             this.Controls.Add(this.ButtonCheckNetwork);
             this.Controls.Add(this.LabelText);
-            this.Name = "PluginGUI";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.MaximizeBox = false;
+            this.Name = "PluginGui";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "PluginGUI";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PluginGUI_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

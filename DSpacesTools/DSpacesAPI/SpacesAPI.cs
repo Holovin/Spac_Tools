@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using DNetwork;
-using IPlugin;
+﻿using IPlugin;
 
-namespace DSpacesAPI {
+namespace DSpacesApi {
     public class SpacesApi : IBasePlugin {
         public string Name => "Spaces API";
         public string Author => "DJ_miXxXer";

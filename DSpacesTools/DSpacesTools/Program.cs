@@ -1,42 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DNetwork;
 using DSpacesTools.Properties;
 
 namespace DSpacesTools {
     public static class Program {
-        private static PluginContainer pluginContainer;
-        private static SessionManager sessionManager;
-        private static Network network;
+        private static PluginContainer _pluginContainer;
+        private static SessionManager _sessionManager;
+        private static Network _network;
 
         [STAThread]
-        static void Main() {
-            pluginContainer = new PluginContainer();
+        private static void Main() {
+            _pluginContainer = new PluginContainer();
 
-            var result = pluginContainer.CheckBasePlugins();
+            var result = _pluginContainer.CheckBasePlugins();
             if (!result.GetSuccess()) {
                 result.ShowError();
                 return;
             }
 
-            pluginContainer.Load();
+            _pluginContainer.Load();
 
-            sessionManager = new SessionManager();
-            network = new Network();
+            _sessionManager = new SessionManager();
+            _network = new Network();
 
-            //try {
+            try {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new FormApp(ref network, ref pluginContainer, ref sessionManager));
-            //}
-            //catch (Exception e) {
-                //MessageBox.Show(Resources.ErrorCriticalGlobalMessage + '\n' + e.Message, Resources.ErrorCriticalGlobalHeader);
-            //}            
+                Application.Run(new FormApp(ref _network, ref _pluginContainer, ref _sessionManager));
+            }
+            catch (Exception e) {
+                // ReSharper disable once LocalizableElement
+                MessageBox.Show(Resources.ErrorCriticalGlobalMessage + "\n\n" + e.Source + @" @ " + e.Message, Resources.ErrorCriticalGlobalHeader);
+            }            
         }
     }
 }

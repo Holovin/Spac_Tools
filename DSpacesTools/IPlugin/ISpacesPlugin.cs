@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace IPlugin
 {
@@ -15,8 +17,10 @@ namespace IPlugin
         /// <summary>
         /// Run GUI with plugin init
         /// </summary>
+        /// <param name="parent">[Reserved]</param>
+        /// <param name="formClosedEventHandler">Event which need trigger after close plugin form</param>
         /// <param name="o">Any needed params</param>
-        void Run(params object[] o);
+        void Run(Form parent, EventHandler formClosedEventHandler, params object[] o);
 
         /// <summary>
         /// Refresh data in plugin when its running

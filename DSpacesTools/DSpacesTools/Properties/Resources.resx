@@ -168,6 +168,6 @@
     <value>Критическая ошибка приложения</value>
   </data>
   <data name="ErrorCriticalGlobalMessage" xml:space="preserve">
-    <value>Что-то пошло не так...</value>
+    <value>Приложение было внезапно закрыто. Информация:</value>
   </data>
 </root>

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Handlers;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using IPlugin;
 
@@ -28,17 +26,17 @@ namespace DNetwork {
         /// <summary>
         /// Core component for network access
         /// </summary>
-        private HttpClient httpClient;
+        private readonly HttpClient _httpClient;
 
         /// <summary>
         /// Settings part for HttpClient
         /// </summary>
-        private HttpClientHandler httpClientHandler;
+        private readonly HttpClientHandler _httpClientHandler;
 
         /// <summary>
         /// Cookies for HttpClient (external for access)
         /// </summary>
-        private CookieContainer CookieContainer => httpClientHandler.CookieContainer;
+        private CookieContainer CookieContainer => _httpClientHandler.CookieContainer;
 
         /// <summary>
         /// Progress for progressbars (add delegate with += operator to HttpSendProgress/HttpReciveProgress to watching)
@@ -61,7 +59,7 @@ namespace DNetwork {
         public Uri RecivedUri { get; private set; }
 
         public Network(string useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116") {
-            httpClientHandler = new HttpClientHandler {
+            _httpClientHandler = new HttpClientHandler {
                 ClientCertificateOptions = ClientCertificateOption.Automatic,
                 AllowAutoRedirect = true,
                 MaxAutomaticRedirections = 3,
@@ -73,13 +71,13 @@ namespace DNetwork {
 
             ProgressMessageHandler = new ProgressMessageHandler();
 
-            httpClient = HttpClientFactory.Create(httpClientHandler, ProgressMessageHandler);
-            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(useragent);
-            httpClient.Timeout = TimeSpan.FromMinutes(1);
+            _httpClient = HttpClientFactory.Create(_httpClientHandler, ProgressMessageHandler);
+            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(useragent);
+            _httpClient.Timeout = TimeSpan.FromMinutes(1);
 
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-            httpClient.DefaultRequestHeaders.ExpectContinue = false;
+            _httpClient.DefaultRequestHeaders.Accept.Clear();
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+            _httpClient.DefaultRequestHeaders.ExpectContinue = false;
 
             RecivedData = string.Empty;
             RecivedHttpCode = HttpStatusCode.Forbidden;
@@ -91,19 +89,18 @@ namespace DNetwork {
         /// </summary>
         /// <param name="minutes">Time in minutes</param>
         public void SetRequestTimeout(int minutes) {
-            httpClient.Timeout = TimeSpan.FromMinutes(minutes);
+            _httpClient.Timeout = TimeSpan.FromMinutes(minutes);
         }
 
         /// <summary>
         /// Remove all cookies in CookieContainer
         /// </summary>
-        /// <param name="uri">Domain for remove</param>
         public void ClearCookies() {
             //foreach (Cookie cookie in cookieContainer.GetCookies(uri)) {
             //    cookie.Expired = true;
             //}
 
-            httpClientHandler.CookieContainer = new CookieContainer();
+            _httpClientHandler.CookieContainer = new CookieContainer();
         }
 
         /// <summary>
@@ -141,7 +138,7 @@ namespace DNetwork {
         /// <param name="url">Request url</param>
         /// <returns>No return value</returns>
         public async Task<string> Get(string url) {
-            using (var response = await httpClient.GetAsync(url).ConfigureAwait(false)) {
+            using (var response = await _httpClient.GetAsync(url).ConfigureAwait(false)) {
                 return await ProcessRequest(response).ConfigureAwait(false);
             }
         }        
@@ -154,7 +151,7 @@ namespace DNetwork {
         /// <returns>No return value</returns>
         public async Task<string> Post(string url, List<KeyValuePair<string, string>> postParams) {
             using (var postHeaders = new FormUrlEncodedContent(postParams))
-            using (var response = await httpClient.PostAsync(url, postHeaders).ConfigureAwait(false)) {
+            using (var response = await _httpClient.PostAsync(url, postHeaders).ConfigureAwait(false)) {
                 return await ProcessRequest(response).ConfigureAwait(false);
             }
         }

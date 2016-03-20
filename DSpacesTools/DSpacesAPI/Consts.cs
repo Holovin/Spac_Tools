@@ -1,4 +1,4 @@
-﻿namespace DSpacesAPI {
+﻿namespace DSpacesApi {
     public static class Co {
         public class Network {
             public const string Protocol = "http://";

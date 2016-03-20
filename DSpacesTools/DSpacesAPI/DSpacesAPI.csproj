@@ -43,7 +43,7 @@
     <Compile Include="Consts.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpacesAPI.cs" />
+    <Compile Include="SpacesApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DMessages\DSharedCore.csproj">

@@ -1,14 +1,8 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DMessages;
 using DNetwork;
-using DSpacesAPI;
-using Type = DMessages.Type;
+using DSpacesApi;
 
 namespace DSpacesTools {
     public class SessionManager {

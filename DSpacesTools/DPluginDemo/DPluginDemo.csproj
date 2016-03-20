@@ -44,17 +44,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PluginDemo.cs" />
-    <Compile Include="PluginGUI.cs">
+    <Compile Include="PluginGui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PluginGUI.Designer.cs">
-      <DependentUpon>PluginGUI.cs</DependentUpon>
+    <Compile Include="PluginGui.Designer.cs">
+      <DependentUpon>PluginGui.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PluginGUI.resx">
-      <DependentUpon>PluginGUI.cs</DependentUpon>
+    <EmbeddedResource Include="PluginGui.resx">
+      <DependentUpon>PluginGui.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -23,13 +23,13 @@ namespace DMessages {
         Default,
     }
 
-    public class Message {       
-        private readonly Type type;
-        private readonly object message;
+    public class Message {
+        private readonly Type _type;
+        private readonly object _message;
 
         public Message(Type type, object message) {
-            this.type = type;
-            this.message = message;
+            _type = type;
+            _message = message;
         }
 
         public DialogResult ShowError(MessageBoxButtons buttons = MessageBoxButtons.OK, MessageBoxDefaultButton button = MessageBoxDefaultButton.Button1) {
@@ -41,7 +41,7 @@ namespace DMessages {
         }
 
         private MessageBoxIcon GetIcon() {
-            switch (type) {
+            switch (_type) {
                 case Type.Default:
                     return MessageBoxIcon.None;
 
@@ -61,9 +61,9 @@ namespace DMessages {
                     return MessageBoxIcon.None;
             }
         }
-    
+
         public bool GetSuccess() {
-            return type == Type.Success;
+            return _type == Type.Success;
         }
 
         public string GetMessage() {
@@ -73,7 +73,7 @@ namespace DMessages {
         private string GetMessageText() {
             var output = string.Empty;
 
-            switch (type) {
+            switch (_type) {
                 case Type.Default:
                     output += "Неизвестное событие";
                     break;
@@ -92,16 +92,13 @@ namespace DMessages {
                 case Type.Debug:
                     output += "Отладка: ";
                     break;
-
-                default:
-                    break;
             }
 
             return output;
         }
 
         private string GetMessageType() {
-            switch (type) {
+            switch (_type) {
                 case Type.Default:
                     return "Сообщение";
 
@@ -126,11 +123,11 @@ namespace DMessages {
         private string GetMessageError() {
             var output = string.Empty;
 
-            if (!(message is Error)) {
+            if (!(_message is Error)) {
                 return string.Empty;
             }
 
-            switch ((Error)message) {
+            switch ((Error)_message) {
                 // Base messages
                 case Error.Default:
                     output += "Ошибка";
@@ -167,7 +164,7 @@ namespace DMessages {
                     break;
             }
 
-            output += " (" + (message) + ")";
+            output += " (" + (_message) + ")";
             return output;
         }
     }

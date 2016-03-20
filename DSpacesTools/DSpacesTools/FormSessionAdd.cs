@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DSpacesTools.Properties;
 
 namespace DSpacesTools {
     public partial class FormSessionAdd : Form {
-        private SessionManager sessionManager;
+        private SessionManager _sessionManager;
 
         public FormSessionAdd(ref SessionManager sm) {
             InitializeComponent();
@@ -20,17 +13,16 @@ namespace DSpacesTools {
         }
 
         private void ButtonAddSid_Click(object sender, EventArgs e) {
-            AddSid(TextBoxSid.Text);            
+            AddSid(TextBoxSid.Text);
         }
 
         private void Init(ref SessionManager sm) {
-            sessionManager = sm;
+            _sessionManager = sm;
             Text = Resources.ApplicationName;
 
             Tabs.SelectedIndex = 0;
             ProgressBarLoading.MarqueeAnimationSpeed = 20; // <- random value
         }
-        
 
         private async void AddSid(string sid) {
             Tabs.SelectedTab = TabLoading;
@@ -38,7 +30,7 @@ namespace DSpacesTools {
             // wait tab switch
             await Task.Delay(1000);
 
-            var result = await sessionManager.Add(sid);
+            var result = await _sessionManager.Add(sid);
             if (!result.GetSuccess()) {
                 result.ShowError();
                 Tabs.SelectedTab = TabInput;
@@ -55,7 +47,7 @@ namespace DSpacesTools {
         private void FormSessionAdd_FormClosing(object sender, FormClosingEventArgs e) {
             if (Tabs.SelectedTab == TabLoading) {
                 e.Cancel = true;
-            }            
+            }
         }
     }
 }

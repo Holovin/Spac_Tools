@@ -115,7 +115,7 @@ namespace DSpacesTools.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Что-то пошло не так....
+        ///   Ищет локализованную строку, похожую на Приложение было внезапно закрыто. Информация:.
         /// </summary>
         internal static string ErrorCriticalGlobalMessage {
             get {

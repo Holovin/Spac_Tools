@@ -160,7 +160,9 @@
             this.ClientSize = new System.Drawing.Size(354, 217);
             this.Controls.Add(this.Tabs);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(370, 255);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(370, 255);
             this.Name = "FormSessionAdd";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

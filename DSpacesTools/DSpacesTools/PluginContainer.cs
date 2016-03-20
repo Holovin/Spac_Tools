@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -19,7 +18,7 @@ namespace DSpacesTools {
         public string Link => "http://dj_mixxxer.spaces.ru";
         public string Description => "Inner plugin conatiner component.";
 
-        private readonly List<string> basePluginsList =
+        private readonly List<string> _basePluginsList =
         new List<string>  {
             "IPlugin.dll",
             "DNetwork.dll",
@@ -27,12 +26,13 @@ namespace DSpacesTools {
         };
 
         [ImportMany(typeof(ISpacesPlugin))]
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         public List<ISpacesPlugin> Plugins { get; private set; }
 
-        private readonly Dictionary<string, int> activePlugins;
+        private readonly Dictionary<string, int> _activePlugins;
 
         public PluginContainer() {
-            activePlugins = new Dictionary<string, int>();
+            _activePlugins = new Dictionary<string, int>();
         }
 
         public Message CheckBasePlugins() {
@@ -46,7 +46,7 @@ namespace DSpacesTools {
             var catalog = new AggregateCatalog();
 
             // TODO: fix warn
-            catalog.Catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath)));
+            catalog.Catalogs.Add(new DirectoryCatalog(GetCurrentPath()));
             var container = new CompositionContainer(catalog);
 
             try {
@@ -68,13 +68,13 @@ namespace DSpacesTools {
         }
         
         public void ActivePluginsListAdd(string pluginInnerName, int currentVersion) {
-            activePlugins.Add(pluginInnerName, currentVersion);
+            _activePlugins.Add(pluginInnerName, currentVersion);
         }
 
         public bool CheckDependency(int id) {
             foreach (var req in Plugins[id].Requires) {
                 var usedVersion = 0;
-                if (!activePlugins.TryGetValue(req.Key, out usedVersion)) {
+                if (!_activePlugins.TryGetValue(req.Key, out usedVersion)) {
                     continue;
                 }
 
@@ -98,7 +98,7 @@ namespace DSpacesTools {
 
 
         private void RequireListClear() {
-            activePlugins.Clear();
+            _activePlugins.Clear();
         }
 
         private bool CheckBasePluginsThrow() {
@@ -106,7 +106,8 @@ namespace DSpacesTools {
             var current = GetCurrentPath();
 
             try {
-                foreach (var testAssembly in basePluginsList.Select(plugin => AssemblyName.GetAssemblyName(Path.Combine(current, plugin)))) {
+                // ReSharper disable once UnusedVariable
+                foreach (var testAssembly in _basePluginsList.Select(plugin => AssemblyName.GetAssemblyName(Path.Combine(current, plugin)))) {
                     // TODO: add name check
                 }
                 

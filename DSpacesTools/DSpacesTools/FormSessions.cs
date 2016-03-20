@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DSpacesAPI;
+using DSpacesApi;
 using DSpacesTools.Properties;
 
 namespace DSpacesTools {
     public partial class FormSessions : Form {
-        private SessionManager sessionManager;
+        private SessionManager _sessionManager;
 
         // Logic //
         private void RemoveSession(int id) {
             ListBoxSessions.Items.Remove(id);
-            sessionManager.RemoveById(id).ShowError();
+            _sessionManager.RemoveById(id).ShowError();
             RefreshSessionList();
         }
 
@@ -26,22 +19,22 @@ namespace DSpacesTools {
             ListBoxSessions.Items.Clear();
             ListBoxSessions.Items.Add("Анонимный"); // TODO: do something with it
 
-            for (var i = 1; i < sessionManager.Sessions.Count; i++) {
-                ListBoxSessions.Items.Add(sessionManager.Sessions[i].Login);
+            for (var i = 1; i < _sessionManager.Sessions.Count; i++) {
+                ListBoxSessions.Items.Add(_sessionManager.Sessions[i].Login);
             }
 
             ListBoxSessions.SelectedIndex = 0;
         }
 
         private void LoadSession(int id) {
-            LabelLogin.Text = sessionManager.Sessions[id].Login;
-            LabelSid.Text = sessionManager.Sessions[id].Sid;
-            LabelAccountId.Text = sessionManager.Sessions[id].UserId;
+            LabelLogin.Text = _sessionManager.Sessions[id].Login;
+            LabelSid.Text = _sessionManager.Sessions[id].Sid;
+            LabelAccountId.Text = _sessionManager.Sessions[id].UserId;
 
-            LabelTimeChecked.Text = sessionManager.Sessions[id].LastCheckTime.ToString(CultureInfo.InvariantCulture);
-            LabelTimeCreated.Text = sessionManager.Sessions[id].CreationTime.ToString(CultureInfo.InvariantCulture);
+            LabelTimeChecked.Text = _sessionManager.Sessions[id].LastCheckTime.ToString(CultureInfo.InvariantCulture);
+            LabelTimeCreated.Text = _sessionManager.Sessions[id].CreationTime.ToString(CultureInfo.InvariantCulture);
 
-            switch (sessionManager.Sessions[id].State) {
+            switch (_sessionManager.Sessions[id].State) {
                 case SessionState.Empty:
                     LabelLogin.Text = Resources.UnknownValue;
                     LabelSid.Text = Resources.UnknownValue;
@@ -73,7 +66,7 @@ namespace DSpacesTools {
         private async void RefreshSession(int id) {
             LabelTimeChecked.Text = Resources.Common_LoadingBraces;
 
-            var result = await sessionManager.Sessions[id].CheckStatus();
+            var result = await _sessionManager.Sessions[id].CheckStatus();
             result.ShowError();
 
             LoadSession(id);
@@ -92,13 +85,13 @@ namespace DSpacesTools {
         }
 
         private void Init(ref SessionManager sm) {
-            sessionManager = sm;
+            _sessionManager = sm;
 
             Text = Resources.ApplicationName;
         }
 
         private void MainMenuControlAddItem_Click(object sender, EventArgs e) {
-            var form = new FormSessionAdd(ref sessionManager);
+            var form = new FormSessionAdd(ref _sessionManager);
             form.ShowDialog();
             RefreshSessionList();
         }

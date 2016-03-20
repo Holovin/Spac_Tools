@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Configuration;
-using System.Security.Policy;
-using System.Text;
 using System.Threading.Tasks;
 using DMessages;
 using DNetwork;
 using Type = DMessages.Type;
 
-namespace DSpacesAPI {
+namespace DSpacesApi {
     public enum SessionState {
         Empty,
         Anonymous,
         Valid,
-        Invalid,        
+        Invalid,
     }
 
     public class Session {
         public const int SidSize = 16;
-        public const int CkSize = 4;        
+        public const int CkSize = 4;
         public const string CookieUserLogin = "name";
         public const string CookieUserId = "user_id";
 
@@ -105,12 +99,6 @@ namespace DSpacesAPI {
 
                 case SessionState.Anonymous:
                     return new Message(Type.Error, Error.SessionUnsupportedForAnon);
-
-                case SessionState.Valid:
-                case SessionState.Invalid:
-                default:
-                    // do nothing
-                    break;
             }
 
             LastCheckTime = DateTime.Now;
