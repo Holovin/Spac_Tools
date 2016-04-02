@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DNetwork;
-using DSpacesApi;
-using SharedComponents;
 
-namespace DSpacesAPI {
+namespace SharedComponents {
     public class SessionManager {
         public List<Session> Sessions { get; private set; }
 
@@ -30,7 +28,7 @@ namespace DSpacesAPI {
         }
 
         public Message RemoveById(int id) {
-            if (Sessions[id].State == SessionState.Anonymous) {
+            if (Sessions[id].State == Session.SessionState.Anonymous) {
                 return new Message(MessageType.Error, Error.SessionForbiddenRemove);
             }
 

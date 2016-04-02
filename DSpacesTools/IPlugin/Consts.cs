@@ -1,4 +1,4 @@
-﻿namespace DSpacesApi {
+﻿namespace SharedComponents {
     public static class Co {
         public class Network {
             public const string Protocol = "http://";

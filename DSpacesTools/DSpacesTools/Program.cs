@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using DNetwork;
-using DSpacesAPI;
 using DSpacesTools.Properties;
+using SharedComponents;
 
 namespace DSpacesTools {
     public static class Program {

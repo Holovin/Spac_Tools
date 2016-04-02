@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Windows.Forms;
 using DSpacesApi;
-using DSpacesAPI;
 using DSpacesTools.Properties;
 using SharedComponents;
 
@@ -37,25 +36,25 @@ namespace DSpacesTools {
             LabelTimeCreated.Text = _sessionManager.Sessions[id].CreationTime.ToString(CultureInfo.InvariantCulture);
 
             switch (_sessionManager.Sessions[id].State) {
-                case SessionState.Empty:
+                case Session.SessionState.Empty:
                     LabelLogin.Text = Resources.UnknownValue;
                     LabelSid.Text = Resources.UnknownValue;
                     LabelAccountId.Text = Resources.UnknownValue;
                     LabelStatus.Text = Resources.SessionStatusEmpty;
                     break;   
 
-                case SessionState.Anonymous:
+                case Session.SessionState.Anonymous:
                     LabelLogin.Text = Resources.SessionAnonymousLogin;
                     LabelSid.Text = Resources.UnknownValue;
                     LabelAccountId.Text = Resources.UnknownValue;
                     LabelStatus.Text = Resources.SessionStatusAnonymous;
                     break;
 
-                case SessionState.Valid:
+                case Session.SessionState.Valid:
                     LabelStatus.Text = Resources.SessionStatusValid;
                     break;
 
-                case SessionState.Invalid:
+                case Session.SessionState.Invalid:
                     LabelStatus.Text = Resources.SessionStateInvalid;
                     LabelAccountId.Text = Resources.UnknownValue;
                     break;

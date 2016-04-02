@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using DNetwork;
-using DSpacesAPI;
 using DSpacesTools.Properties;
 using SharedComponents;
 
@@ -74,7 +73,7 @@ namespace DSpacesTools {
 
         private void RunPlugin(int id) {
             Hide();
-            _pluginContainer.Plugins[id].Run(FormCloseEvent, new List<SessionModel>(_sessionManager.Sessions), null);
+            _pluginContainer.Plugins[id].Run(FormCloseEvent, new List<Session>(_sessionManager.Sessions), null);
         }
 
         private void FormCloseEvent(object sender, EventArgs eventArgs) {

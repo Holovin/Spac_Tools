@@ -49,14 +49,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts.cs" />
     <Compile Include="IBasePlugin.cs" />
     <Compile Include="ISpacesPlugin.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionModel.cs" />
+    <Compile Include="Session.cs" />
+    <Compile Include="SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DNetwork\DNetwork.csproj">
+      <Project>{63e0cbbc-95b6-4cd3-a267-2608c9ac0f68}</Project>
+      <Name>DNetwork</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

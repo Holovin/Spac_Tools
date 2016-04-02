@@ -7,22 +7,9 @@ using System.Net.Http;
 using System.Net.Http.Handlers;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using SharedComponents;
 
 namespace DNetwork {
-    public class Network : IBasePlugin {
-        public string Name => "Network";
-
-        public string Author => "DJ_miXxXer";
-
-        public string Description => "Base plugin for network";
-
-        public string InnerName => "base.network";
-
-        public string Link => "http://spaces.ru";
-
-        public int Version => 1;
-
+    public class Network {    
         /// <summary>
         /// Core component for network access
         /// </summary>

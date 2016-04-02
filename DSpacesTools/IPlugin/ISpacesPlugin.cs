@@ -17,7 +17,7 @@ namespace SharedComponents {
         /// <param name="formClosedEventHandler">Event which need trigger after close plugin form</param>
         /// <param name="sessions">List of active sessions (can be empty)</param>
         /// <param name="o">[reserved]</param>
-        void Run(EventHandler formClosedEventHandler, List<SessionModel> sessions, params object[] o);
+        void Run(EventHandler formClosedEventHandler, List<Session> sessions, params object[] o);
 
         /// <summary>
         /// Refresh data in plugin when its running

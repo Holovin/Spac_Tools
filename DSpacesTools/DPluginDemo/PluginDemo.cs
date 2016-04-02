@@ -4,11 +4,9 @@ using System.ComponentModel.Composition;
 using System.Windows.Forms;
 using IPlugin;
 
-namespace DPluginDemo
-{   
+namespace DPluginDemo {   
     [Export(typeof(ISpacesPlugin))]
-    public class PluginDemo: ISpacesPlugin
-    {
+    public class PluginDemo: ISpacesPlugin {
         public string Name => "Plugin Demo";
 
         public string InnerName => "plugindemo";

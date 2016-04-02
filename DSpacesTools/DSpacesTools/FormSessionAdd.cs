@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DSpacesAPI;
 using DSpacesTools.Properties;
+using SharedComponents;
 
 namespace DSpacesTools {
     public partial class FormSessionAdd : Form {
