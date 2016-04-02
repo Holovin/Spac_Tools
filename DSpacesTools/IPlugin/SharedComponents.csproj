@@ -7,8 +7,8 @@
     <ProjectGuid>{6E8E4C14-7D50-4CC2-8C85-A3CBB1C5D568}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IPlugin</RootNamespace>
-    <AssemblyName>IPlugin</AssemblyName>
+    <RootNamespace>SharedComponents</RootNamespace>
+    <AssemblyName>SharedComponents</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -51,7 +51,9 @@
   <ItemGroup>
     <Compile Include="IBasePlugin.cs" />
     <Compile Include="ISpacesPlugin.cs" />
+    <Compile Include="Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -104,6 +104,7 @@
             this.LnkLabelCompability.TabIndex = 8;
             this.LnkLabelCompability.TabStop = true;
             this.LnkLabelCompability.Text = "Минимальные требования";
+            this.LnkLabelCompability.Visible = false;
             this.LnkLabelCompability.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LnkLabelCompability_LinkClicked);
             // 
             // ButtonPluginRun
@@ -136,6 +137,7 @@
             this.LabelPluginLink.TabStop = true;
             this.LabelPluginLink.Text = "Plugin.Link";
             this.LabelPluginLink.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.LabelPluginLink.Visible = false;
             this.LabelPluginLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LabelPluginLink_LinkClicked);
             // 
             // LabelPluginAuthor
@@ -146,6 +148,7 @@
             this.LabelPluginAuthor.TabIndex = 4;
             this.LabelPluginAuthor.Text = "by Author.Name";
             this.LabelPluginAuthor.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.LabelPluginAuthor.Visible = false;
             // 
             // LabelPluginVersion
             // 

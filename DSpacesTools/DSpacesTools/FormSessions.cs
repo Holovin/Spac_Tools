@@ -2,7 +2,9 @@
 using System.Globalization;
 using System.Windows.Forms;
 using DSpacesApi;
+using DSpacesAPI;
 using DSpacesTools.Properties;
+using SharedComponents;
 
 namespace DSpacesTools {
     public partial class FormSessions : Form {

@@ -43,20 +43,17 @@
     <Compile Include="Consts.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionManager.cs" />
     <Compile Include="SpacesApi.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DMessages\DSharedCore.csproj">
-      <Project>{c11790ed-b720-4e45-a7dd-5eb48b8bb1ca}</Project>
-      <Name>DSharedCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DNetwork\DNetwork.csproj">
       <Project>{63e0cbbc-95b6-4cd3-a267-2608c9ac0f68}</Project>
       <Name>DNetwork</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IPlugin\IConnector.csproj">
+    <ProjectReference Include="..\IPlugin\SharedComponents.csproj">
       <Project>{6e8e4c14-7d50-4cc2-8c85-a3cbb1c5d568}</Project>
-      <Name>IConnector</Name>
+      <Name>SharedComponents</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

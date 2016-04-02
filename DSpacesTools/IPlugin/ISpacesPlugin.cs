@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
-namespace IPlugin
-{
+namespace SharedComponents {
     /// <summary>
     /// Interface for custom plugins
     /// </summary>
-    public interface ISpacesPlugin: IBasePlugin
-    {        
+    public interface ISpacesPlugin: IBasePlugin {
         /// <summary>
         /// Requires list, format {InnerName; MinVersion, MaxVersion}
         /// </summary>
@@ -17,10 +14,10 @@ namespace IPlugin
         /// <summary>
         /// Run GUI with plugin init
         /// </summary>
-        /// <param name="parent">[Reserved]</param>
         /// <param name="formClosedEventHandler">Event which need trigger after close plugin form</param>
-        /// <param name="o">Any needed params</param>
-        void Run(Form parent, EventHandler formClosedEventHandler, params object[] o);
+        /// <param name="sessions">List of active sessions (can be empty)</param>
+        /// <param name="o">[reserved]</param>
+        void Run(EventHandler formClosedEventHandler, List<SessionModel> sessions, params object[] o);
 
         /// <summary>
         /// Refresh data in plugin when its running

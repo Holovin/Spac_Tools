@@ -53,9 +53,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IPlugin\IConnector.csproj">
+    <ProjectReference Include="..\IPlugin\SharedComponents.csproj">
       <Project>{6e8e4c14-7d50-4cc2-8c85-a3cbb1c5d568}</Project>
-      <Name>IConnector</Name>
+      <Name>SharedComponents</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,10 @@
 ﻿using System.Windows.Forms;
 
-namespace DMessages {
+namespace SharedComponents {
     /// <summary>
     /// Shared class for text GUI messages
     /// </summary>
-    public enum Type {
+    public enum MessageType {
         Default,
         Info,
         Success,
@@ -27,11 +27,11 @@ namespace DMessages {
     }
 
     public class Message {
-        private readonly Type _type;
+        private readonly MessageType _messageType;
         private readonly object _message;
 
-        public Message(Type type, object message) {
-            _type = type;
+        public Message(MessageType messageType, object message) {
+            _messageType = messageType;
             _message = message;
         }
 
@@ -44,20 +44,20 @@ namespace DMessages {
         }
 
         private MessageBoxIcon GetIcon() {
-            switch (_type) {
-                case Type.Default:
+            switch (_messageType) {
+                case MessageType.Default:
                     return MessageBoxIcon.None;
 
-                case Type.Info:
+                case MessageType.Info:
                     return MessageBoxIcon.Information;
 
-                case Type.Success:
+                case MessageType.Success:
                     return MessageBoxIcon.Asterisk;
 
-                case Type.Debug:
+                case MessageType.Debug:
                     return MessageBoxIcon.Exclamation;
 
-                case Type.Error:
+                case MessageType.Error:
                     return MessageBoxIcon.Error;
 
                 default:
@@ -66,7 +66,7 @@ namespace DMessages {
         }
 
         public bool GetSuccess() {
-            return _type == Type.Success;
+            return _messageType == MessageType.Success;
         }
 
         public string GetMessage() {
@@ -76,23 +76,23 @@ namespace DMessages {
         private string GetMessageText() {
             var output = string.Empty;
 
-            switch (_type) {
-                case Type.Default:
+            switch (_messageType) {
+                case MessageType.Default:
                     output += "Неизвестное событие";
                     break;
 
-                case Type.Error:
+                case MessageType.Error:
                     output += GetMessageError();
                     break;
 
-                case Type.Info:
+                case MessageType.Info:
                     break;
 
-                case Type.Success:
+                case MessageType.Success:
                     output += "Успех";
                     break;
 
-                case Type.Debug:
+                case MessageType.Debug:
                     output += "Отладка: ";
                     break;
             }
@@ -101,20 +101,20 @@ namespace DMessages {
         }
 
         private string GetMessageType() {
-            switch (_type) {
-                case Type.Default:
+            switch (_messageType) {
+                case MessageType.Default:
                     return "Сообщение";
 
-                case Type.Info:
+                case MessageType.Info:
                     return "Информация";
 
-                case Type.Success:
+                case MessageType.Success:
                     return "Успех";
 
-                case Type.Debug:
+                case MessageType.Debug:
                     return "Отладка";
 
-                case Type.Error:
+                case MessageType.Error:
                     return "Ошибка";
 
                 default:

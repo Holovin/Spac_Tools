@@ -1,55 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DMessages;
 using DNetwork;
-using Type = DMessages.Type;
+using SharedComponents;
 
 namespace DSpacesApi {
-    public enum SessionState {
-        Empty,
-        Anonymous,
-        Valid,
-        Invalid,
-    }
-
-    public class Session {
-        public const int SidSize = 16;
-        public const int CkSize = 4;
-        public const string CookieUserLogin = "name";
-        public const string CookieUserId = "user_id";
-
-        public string Login { get; private set; }
-
-        /// <summary>
-        /// User id
-        /// </summary>
-        public string UserId { get; private set; }
-
-        /// <summary>
-        /// Authorization code
-        /// </summary>
-        public string Sid { get; private set; }
-
-        /// <summary>
-        /// Check key (last 4 digits of sid)
-        /// </summary>
-        private string Ck => Sid.Length == SidSize ? Sid.Substring(SidSize - CkSize - 1, CkSize) : string.Empty;
-
-        /// <summary>
-        /// Session state
-        /// </summary>
-        public SessionState State { get; private set; }
-
-        /// <summary>
-        /// Creation time
-        /// </summary>
-        public DateTime CreationTime { get; private set; }
-
-        /// <summary>
-        /// Last valid network connection time
-        /// </summary>
-        public DateTime LastCheckTime { get; private set; }
-
+    public class Session: SessionModel {        
         public Network Network { get; private set; }
 
         public Session(Network network) {
@@ -75,7 +30,7 @@ namespace DSpacesApi {
             Sid = sid.Trim();
 
             if (!CheckSidFormat() || State != SessionState.Empty) {
-                return new Message(Type.Error, Error.SessionWrongSid);
+                return new Message(MessageType.Error, Error.SessionWrongSid);
             }
 
             State = SessionState.Invalid;
@@ -95,10 +50,10 @@ namespace DSpacesApi {
         public async Task<Message> CheckStatus() {
             switch (State) {
                 case SessionState.Empty:
-                    return new Message(Type.Error, Error.SessionInvalidState);
+                    return new Message(MessageType.Error, Error.SessionInvalidState);
 
                 case SessionState.Anonymous:
-                    return new Message(Type.Error, Error.SessionUnsupportedForAnon);
+                    return new Message(MessageType.Error, Error.SessionUnsupportedForAnon);
             }
 
             LastCheckTime = DateTime.Now;
@@ -109,17 +64,17 @@ namespace DSpacesApi {
 
             if (possibleUserId == string.Empty) {
                 State = SessionState.Invalid;
-                return new Message(Type.Error, Error.SessionWrongSid);
+                return new Message(MessageType.Error, Error.SessionWrongSid);
             }
 
             State = SessionState.Valid;
             UserId = possibleUserId;
             Login = await GetCurrentUserNameById().ConfigureAwait(false);
 
-            return new Message(Type.Success, Success.Default);
+            return new Message(MessageType.Success, Success.Default);
         }
 
-        public async Task<string> GetCurrentUserNameById() {
+        private async Task<string> GetCurrentUserNameById() {
             if (State != SessionState.Valid) {
                 return string.Empty;
             }

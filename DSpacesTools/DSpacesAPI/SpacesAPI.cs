@@ -1,4 +1,4 @@
-﻿using IPlugin;
+﻿using SharedComponents;
 
 namespace DSpacesApi {
     public class SpacesApi : IBasePlugin {

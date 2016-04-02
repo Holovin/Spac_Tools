@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using DNetwork;
+using DSpacesAPI;
 using DSpacesTools.Properties;
 
 namespace DSpacesTools {

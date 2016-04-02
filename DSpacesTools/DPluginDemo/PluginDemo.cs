@@ -27,7 +27,7 @@ namespace DPluginDemo
       
         private PluginGui _app;
                   
-        public void Run(Form parent, EventHandler formCloseEvent, params object[] o) {
+        public void Run(EventHandler formCloseEvent, params object[] o) {
             _app = new PluginGui("Test", formCloseEvent) {                
                 StartPosition = FormStartPosition.CenterScreen
             };

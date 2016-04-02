@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using DNetwork;
+using DSpacesAPI;
 using DSpacesTools.Properties;
+using SharedComponents;
 
 namespace DSpacesTools {
     public partial class FormApp : Form {
@@ -72,7 +74,7 @@ namespace DSpacesTools {
 
         private void RunPlugin(int id) {
             Hide();
-            _pluginContainer.Plugins[id].Run(this, FormCloseEvent);
+            _pluginContainer.Plugins[id].Run(FormCloseEvent, new List<SessionModel>(_sessionManager.Sessions), null);
         }
 
         private void FormCloseEvent(object sender, EventArgs eventArgs) {
@@ -103,7 +105,7 @@ namespace DSpacesTools {
         }
 
         private void LnkLabelCompability_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            //
+            // TODO
         }
 
         private void MainMenuSessionsItem_Click(object sender, EventArgs e) {

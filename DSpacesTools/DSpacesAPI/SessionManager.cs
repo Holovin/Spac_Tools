@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DMessages;
 using DNetwork;
 using DSpacesApi;
+using SharedComponents;
 
-namespace DSpacesTools {
+namespace DSpacesAPI {
     public class SessionManager {
         public List<Session> Sessions { get; private set; }
 
@@ -26,16 +26,16 @@ namespace DSpacesTools {
             RemoveDuplicates(session);
             Sessions.Add(session);
 
-            return new Message(Type.Success, Success.Default);
+            return new Message(MessageType.Success, Success.Default);
         }
 
         public Message RemoveById(int id) {
             if (Sessions[id].State == SessionState.Anonymous) {
-                return new Message(Type.Error, Error.SessionForbiddenRemove);
+                return new Message(MessageType.Error, Error.SessionForbiddenRemove);
             }
 
             Sessions.RemoveAt(id);
-            return new Message(Type.Success, Success.Default);
+            return new Message(MessageType.Success, Success.Default);
         }
 
         public bool RemoveByName(string login) {

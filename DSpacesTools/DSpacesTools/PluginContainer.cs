@@ -4,10 +4,8 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using SharedComponents;
 using System.Reflection;
-using DMessages;
-using IPlugin;
-using Type = DMessages.Type;
 
 namespace DSpacesTools {
     public class PluginContainer: IBasePlugin {
@@ -37,8 +35,8 @@ namespace DSpacesTools {
 
         public Message CheckBasePlugins() {
             return CheckBasePluginsThrow()
-                ? new Message(Type.Success, Success.Default)
-                : new Message(Type.Error, Error.CorePlguinCheckErr);
+                ? new Message(MessageType.Success, Success.Default)
+                : new Message(MessageType.Error, Error.CorePlguinCheckErr);
         }
 
         // TODO: add subDir support

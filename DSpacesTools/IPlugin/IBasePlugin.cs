@@ -1,4 +1,4 @@
-﻿namespace IPlugin {
+﻿namespace SharedComponents {
     /// <summary>
     /// Base interface for all non-core components
     /// </summary>
