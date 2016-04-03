@@ -1,7 +1,7 @@
 ﻿using SharedComponents;
 
-namespace DSpacesApi {
-    public class SpacesApi : IBasePlugin {
+namespace SpacesApi {
+    public class Spaces : IBasePlugin {
         public string Name => "Spaces API";
         public string Author => "DJ_miXxXer";
         public string Description => "Spaces API Helper tools";

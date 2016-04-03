@@ -13,8 +13,8 @@ namespace DSpacesTools {
             Init(ref sm);
         }
 
-        private void ButtonAddSid_Click(object sender, EventArgs e) {
-            AddSid(TextBoxSid.Text);
+        private async void ButtonAddSid_Click(object sender, EventArgs e) {
+            await AddSid(TextBoxSid.Text);
         }
 
         private void Init(ref SessionManager sm) {
@@ -25,7 +25,7 @@ namespace DSpacesTools {
             ProgressBarLoading.MarqueeAnimationSpeed = 20; // <- random value
         }
 
-        private async void AddSid(string sid) {
+        private async Task AddSid(string sid) {
             Tabs.SelectedTab = TabLoading;
 
             // wait tab switch

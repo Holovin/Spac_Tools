@@ -33,8 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -113,17 +117,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DNetwork\DNetwork.csproj">
+    <ProjectReference Include="..\Network\Network.csproj">
       <Project>{63e0cbbc-95b6-4cd3-a267-2608c9ac0f68}</Project>
-      <Name>DNetwork</Name>
+      <Name>Network</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DSpacesAPI\DSpacesAPI.csproj">
-      <Project>{56224f45-a169-4790-b99a-fa114787573a}</Project>
-      <Name>DSpacesAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IPlugin\SharedComponents.csproj">
+    <ProjectReference Include="..\SharedComponents\SharedComponents.csproj">
       <Project>{6e8e4c14-7d50-4cc2-8c85-a3cbb1c5d568}</Project>
       <Name>SharedComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpacesAPI\SpacesAPI.csproj">
+      <Project>{56224f45-a169-4790-b99a-fa114787573a}</Project>
+      <Name>SpacesAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

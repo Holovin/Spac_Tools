@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DNetwork;
+using Network;
 
 namespace SharedComponents {
     public class SessionManager {
@@ -11,8 +11,8 @@ namespace SharedComponents {
             AddAnonymousUser();
         }
 
-        public async Task<Message> Add(string sid) {
-            var network = new Network();
+        public async Task<DMessage> Add(string sid) {
+            var network = new HttpNetwork();
             var session = new Session(network);
 
             var result = await session.Create(sid).ConfigureAwait(false);
@@ -24,16 +24,16 @@ namespace SharedComponents {
             RemoveDuplicates(session);
             Sessions.Add(session);
 
-            return new Message(MessageType.Success, Success.Default);
+            return new DMessage(MessageType.Success, Success.Default);
         }
 
-        public Message RemoveById(int id) {
+        public DMessage RemoveById(int id) {
             if (Sessions[id].State == Session.SessionState.Anonymous) {
-                return new Message(MessageType.Error, Error.SessionForbiddenRemove);
+                return new DMessage(MessageType.Error, Error.SessionForbiddenRemove);
             }
 
             Sessions.RemoveAt(id);
-            return new Message(MessageType.Success, Success.Default);
+            return new DMessage(MessageType.Success, Success.Default);
         }
 
         public bool RemoveByName(string login) {
@@ -41,7 +41,7 @@ namespace SharedComponents {
         }
 
         private bool AddAnonymousUser() {
-            var network = new Network();
+            var network = new HttpNetwork();
             var session = new Session(network);
 
             if (!session.CreateAnon()) {

@@ -18,9 +18,9 @@ namespace DSpacesTools {
 
         private readonly List<string> _basePluginsList =
         new List<string>  {
-            "IPlugin.dll",
-            "DNetwork.dll",
-            "DSpacesAPI.dll"
+            "SharedComponents.dll",
+            "Network.dll",
+            "SpacesAPI.dll"
         };
 
         [ImportMany(typeof(ISpacesPlugin))]
@@ -33,10 +33,10 @@ namespace DSpacesTools {
             _activePlugins = new Dictionary<string, int>();
         }
 
-        public Message CheckBasePlugins() {
+        public DMessage CheckBasePlugins() {
             return CheckBasePluginsThrow()
-                ? new Message(MessageType.Success, Success.Default)
-                : new Message(MessageType.Error, Error.CorePlguinCheckErr);
+                ? new DMessage(MessageType.Success, Success.Default)
+                : new DMessage(MessageType.Error, Error.CorePlguinCheckErr);
         }
 
         // TODO: add subDir support

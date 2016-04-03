@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DNetwork;
+using HtmlAgilityPack;
+using Network;
 
 namespace SharedComponents {
     public class Session {
@@ -9,6 +12,7 @@ namespace SharedComponents {
             Anonymous,
             Valid,
             Invalid,
+            NeedPhoneNumber
         }
 
         public const int SidSize = 16;
@@ -48,13 +52,13 @@ namespace SharedComponents {
         /// </summary>
         public DateTime LastCheckTime { get; protected set; }
 
-        public Network Network { get; private set; }
+        public HttpNetwork Network { get; private set; }
 
-        public Session(Network network) {
+        public Session(HttpNetwork network) {
             Network = network;
         }
 
-        public void Reset(bool clearCookies, Network network = null) {
+        public void Reset(bool clearCookies, HttpNetwork network = null) {
             if (clearCookies) {
                 network?.ClearCookies();
             }
@@ -67,17 +71,17 @@ namespace SharedComponents {
             LastCheckTime = DateTime.Now;
         }
 
-        public async Task<Message> Create(string sid) {
+        public async Task<DMessage> Create(string sid) {
             Reset(true);
 
             Sid = sid.Trim();
 
             if (!CheckSidFormat() || State != SessionState.Empty) {
-                return new Message(MessageType.Error, Error.SessionWrongSid);
+                return new DMessage(MessageType.Error, Error.SessionWrongSid);
             }
 
             State = SessionState.Invalid;
-            return await CheckStatus().ConfigureAwait(false);
+            return await InitSession().ConfigureAwait(false);
         }
 
         public bool CreateAnon() {
@@ -90,13 +94,46 @@ namespace SharedComponents {
             return true;
         }
 
-        public async Task<Message> CheckStatus() {
+        private void CheckStatusByString(string response) {
+            LastCheckTime = DateTime.Now;
+
+            var sidFind = new Regex("\\?sid=(\\d{16})\\\"");
+            var phoneNubmerReqRegex = new Regex("<span style=\\\"color:green\\\">\\+\\d{8}</span><input type=\\\"text\\\" name=\\\"pn_nums\\\" size=\\\"10\\\" maxlength=\\\"4\\\" value=\\\"\\\" />", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+            var match = sidFind.Match(response);
+
+            // no sid === something wrong      
+            if (!match.Success) {
+                State = SessionState.Invalid;
+                return;
+            }
+
+            
+            if (match.Groups.Count == 0 || match.Groups[1].Value != Sid) {
+                State = SessionState.Invalid;
+                return;
+            }
+            
+
+            // required phone number 
+            if (phoneNubmerReqRegex.IsMatch(response)) {
+                State = SessionState.NeedPhoneNumber;
+                return;
+            }                       
+        }
+
+        public async Task DoGet(string url) {
+            var answer = await Network.Get(url).ConfigureAwait(false);
+            CheckStatusByString(answer);
+        }
+
+        public async Task<DMessage> InitSession() {
             switch (State) {
                 case SessionState.Empty:
-                    return new Message(MessageType.Error, Error.SessionInvalidState);
+                    return new DMessage(MessageType.Error, Error.SessionInvalidState);
 
                 case SessionState.Anonymous:
-                    return new Message(MessageType.Error, Error.SessionUnsupportedForAnon);
+                    return new DMessage(MessageType.Error, Error.SessionUnsupportedForAnon);
             }
 
             LastCheckTime = DateTime.Now;
@@ -108,14 +145,14 @@ namespace SharedComponents {
 
             if (possibleUserId == string.Empty) {
                 State = SessionState.Invalid;
-                return new Message(MessageType.Error, Error.SessionWrongSid);
+                return new DMessage(MessageType.Error, Error.SessionWrongSid);
             }
 
             State = SessionState.Valid;
             UserId = possibleUserId;
             Login = await GetCurrentUserNameById().ConfigureAwait(false);
 
-            return new Message(MessageType.Success, Success.Default);
+            return new DMessage(MessageType.Success, Success.Default);
         }
 
         private async Task<string> GetCurrentUserNameById() {

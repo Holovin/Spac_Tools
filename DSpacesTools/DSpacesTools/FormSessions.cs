@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using DSpacesApi;
+using SpacesApi;
 using DSpacesTools.Properties;
 using SharedComponents;
 
@@ -64,10 +65,10 @@ namespace DSpacesTools {
             }
         }
 
-        private async void RefreshSession(int id) {
+        private async Task RefreshSession(int id) {
             LabelTimeChecked.Text = Resources.Common_LoadingBraces;
 
-            var result = await _sessionManager.Sessions[id].CheckStatus();
+            var result = await _sessionManager.Sessions[id].InitSession();
             result.ShowError();
 
             LoadSession(id);
@@ -105,8 +106,8 @@ namespace DSpacesTools {
             RemoveSession(ListBoxSessions.SelectedIndex);
         }
 
-        private void LabelTimeChecked_Click(object sender, EventArgs e) {
-            RefreshSession(ListBoxSessions.SelectedIndex);
+        private async void LabelTimeChecked_Click(object sender, EventArgs e) {
+            await RefreshSession(ListBoxSessions.SelectedIndex);
         }
     }
 }

@@ -8,8 +8,8 @@ using System.Net.Http.Handlers;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace DNetwork {
-    public class Network {    
+namespace Network {
+    public class HttpNetwork {    
         /// <summary>
         /// Core component for network access
         /// </summary>
@@ -45,7 +45,7 @@ namespace DNetwork {
         /// </summary>
         public Uri RecivedUri { get; private set; }
 
-        public Network(string useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116") {
+        public HttpNetwork(string useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116") {
             _httpClientHandler = new HttpClientHandler {
                 ClientCertificateOptions = ClientCertificateOption.Automatic,
                 AllowAutoRedirect = true,

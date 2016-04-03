@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace SharedComponents {
     /// <summary>
@@ -26,13 +27,21 @@ namespace SharedComponents {
         Default,
     }
 
-    public class Message {
+    public enum Info {
+        Default,
+    }
+
+    public class DMessage {
         private readonly MessageType _messageType;
         private readonly object _message;
+        
+        public int Code { get; set; }
 
-        public Message(MessageType messageType, object message) {
+        public DMessage(MessageType messageType, object message, int code = 0) {
             _messageType = messageType;
             _message = message;
+
+            Code = code;
         }
 
         public DialogResult ShowError(MessageBoxButtons buttons = MessageBoxButtons.OK, MessageBoxDefaultButton button = MessageBoxDefaultButton.Button1) {
@@ -86,10 +95,11 @@ namespace SharedComponents {
                     break;
 
                 case MessageType.Info:
+                    output += GetMessageInfo();
                     break;
 
                 case MessageType.Success:
-                    output += "Успех";
+                    output += GetMessageSuccess();
                     break;
 
                 case MessageType.Debug:
@@ -122,15 +132,57 @@ namespace SharedComponents {
             }
         }
 
+        private bool GetMessageCustom(ref string output) {
+            if (!(_message is string)) {
+                return false;
+            }
+
+            output += _message;
+            return true;
+        }
+
+        private string GetMessageInfo() {
+            var output = string.Empty;
+
+            if (GetMessageCustom(ref output)) {
+                return output;
+            }
+
+            switch ((Info)_message) {
+                case Info.Default:
+                default:
+                output += "[Информация]";
+                break;
+            }
+
+            return output;
+        }
+
+        private string GetMessageSuccess() {
+            var output = string.Empty;
+
+            if (GetMessageCustom(ref output)) {
+                return output;
+            }
+
+            switch ((Success) _message) {
+                case Success.Default:
+                default:
+                    output += "[Текст не указан]";
+                    break;
+            }
+
+            return output;
+        }
 
         private string GetMessageError() {
             var output = string.Empty;
 
-            if (!(_message is Error)) {
-                return string.Empty;
+            if (GetMessageCustom(ref output)) {
+                return output;
             }
 
-            switch ((Error)_message) {
+            switch ((Error) _message) {
                 // Base messages
                 case Error.Default:
                     output += "Ошибка";
@@ -167,7 +219,6 @@ namespace SharedComponents {
                     break;
             }
 
-            output += " (" + (_message) + ")";
             return output;
         }
     }

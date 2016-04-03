@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using DNetwork;
+using Network;
 using DSpacesTools.Properties;
 using SharedComponents;
 
@@ -8,7 +8,7 @@ namespace DSpacesTools {
     public static class Program {
         private static PluginContainer _pluginContainer;
         private static SessionManager _sessionManager;
-        private static Network _network;
+        private static HttpNetwork _network;
 
         [STAThread]
         private static void Main() {
@@ -23,7 +23,7 @@ namespace DSpacesTools {
             _pluginContainer.Load();
 
             _sessionManager = new SessionManager();
-            _network = new Network();
+            _network = new HttpNetwork();
 
             try {
                 Application.EnableVisualStyles();

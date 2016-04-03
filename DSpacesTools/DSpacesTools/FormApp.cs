@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
-using DNetwork;
+using Network;
 using DSpacesTools.Properties;
 using SharedComponents;
 
 namespace DSpacesTools {
     public partial class FormApp : Form {
-        private Network _network;
+        private HttpNetwork _network;
         private readonly PluginContainer _pluginContainer;
         private SessionManager _sessionManager;
 
-        public FormApp(ref Network network, ref PluginContainer pluginContainer, ref SessionManager sessionManager) {
+        public FormApp(ref HttpNetwork network, ref PluginContainer pluginContainer, ref SessionManager sessionManager) {
             InitializeComponent();
 
             _network = network;
